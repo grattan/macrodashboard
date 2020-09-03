@@ -24,6 +24,11 @@ Imports:
     dplyr,
     lubridate,
     readr,
-    utils
+    utils,
+    shiny,
+    purrr,
+    tibble
 Remotes:
     grattan/grattantheme
+Depends: 
+    R (>= 2.10)

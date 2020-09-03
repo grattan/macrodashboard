@@ -2,4 +2,5 @@
 
 utils::globalVariables(c("date", "sydney", "melbourne", "brisbane",
                          "adelaide", "perth", "agg", "city",
-                         "label", "label_y", "value", "change"))
+                         "label", "label_y", "value", "change",
+                         "dash_data"))

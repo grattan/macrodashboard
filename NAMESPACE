@@ -3,6 +3,7 @@
 import(dplyr)
 import(ggplot2)
 import(grattantheme)
+import(shiny)
 import(tidyr)
 import(utils)
 importFrom(patchwork,plot_annotation)

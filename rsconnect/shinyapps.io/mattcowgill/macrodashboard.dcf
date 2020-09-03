@@ -1,0 +1,10 @@
+name: macrodashboard
+title:
+username:
+account: mattcowgill
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2745928
+bundleId: 3586732
+url: https://mattcowgill.shinyapps.io/macrodashboard/
+when: 1599102996.92755

@@ -1,3 +1,5 @@
+# URL: "https://raw.githubusercontent.com/MattCowgill/macro_dashboard_data/master/data/corelogic_daily.csv"
+
 #' @import dplyr
 #' @import tidyr
 #' @import ggplot2
@@ -5,9 +7,7 @@
 #' @import grattantheme
 #' @importFrom patchwork plot_annotation
 
-viz_corelogic_shutdown <- function(url) {
-
-  df <- readr::read_csv(url)
+viz_corelogic_shutdown <- function(df) {
 
   shutdown <- df %>%
     select(-agg) %>%
