@@ -14,5 +14,8 @@ jobs:
         run: |
           install.packages(c("shiny", "rsconnect"), type = "binary")
         shell: Rscript {0}
-      - name: shinyapps
+      - name: authorise-shiny
+        run: Rscript -e "args <- commandArgs(trailingOnly = TRUE) \n rsconnect::setAccountInfo(name = 'mattcowgill', token = args[1], secret = args[2])" ${{ secrets.SHINYAPPS_TOKEN }} ${{ secrets.SHINYAPPS_SECRET }}
+        shell: Rscript {0}
+      - name: deploy-app
         run: Rscript -e 'rsconnect::deployApp()'
