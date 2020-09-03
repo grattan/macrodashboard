@@ -1,0 +1,29 @@
+Package: macrodashboard
+Title: Shiny dashboard for Australian macroeconomic data
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Matt",
+           family = "Cowgill",
+           role = c("aut", "cre"),
+           email = "matthew.cowgill@grattan.edu.au",
+           comment = c(ORCID = "0000-0003-0422-3300"))
+Description: Creates up-to-date visualisations of Australian macroeconomic data 
+    that can be downloaded in a range of formats in the Grattan Institute style.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat
+Imports: 
+    grattantheme,
+    patchwork,
+    ggplot2,
+    tidyr,
+    dplyr,
+    lubridate,
+    readr,
+    utils
+Remotes:
+    grattan/grattantheme
