@@ -5,6 +5,6 @@ account: mattcowgill
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2745928
-bundleId: 3586931
+bundleId: 3587149
 url: https://mattcowgill.shinyapps.io/macrodashboard/
-when: 1599108146.36129
+when: 1599113279.39772
