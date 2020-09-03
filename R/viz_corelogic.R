@@ -107,7 +107,4 @@ viz_corelogic_shutdown <- function(df) {
 
   shutdown_panel
 
-
-
-
 }
