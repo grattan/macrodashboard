@@ -9,25 +9,18 @@
 
 viz_corelogic_shutdown <- function(df) {
 
+  shutdown_date <- lubridate::ymd("2020-03-22")
+
   shutdown <- df %>%
     select(-agg) %>%
     gather(key = city, value = value,
            -date) %>%
-    mutate(city = tools::toTitleCase(city))
-
-  shutdown_date <- lubridate::ymd("2020-03-22")
-
-  min_graph_date <- lubridate::ymd("2020-01-01")
-
-  # Rebase
-
-  shutdown <- shutdown %>%
+    mutate(city = tools::toTitleCase(city)) %>%
     group_by(city) %>%
     mutate(value = 100 * (value / value[date == shutdown_date])) %>%
-    filter(date >= min_graph_date)
+    arrange(city, date) %>%
+    ungroup()
 
-  top_of_range <-  max(c(102,
-                         max(shutdown$value)))
 
   labels <- shutdown %>%
     group_by(city) %>%
@@ -37,6 +30,8 @@ viz_corelogic_shutdown <- function(df) {
                           round(change * 100, 1),
                           "%"),
            label_y = value - 0.5)
+
+  top_of_range <- max(c(102, max(shutdown$value)))
 
   make_shutdown_graph <- function(cities) {
 
@@ -74,8 +69,8 @@ viz_corelogic_shutdown <- function(df) {
                     y = top_of_range - 0.1) +
       facet_wrap(~city) +
       theme_grattan() +
-      scale_y_continuous(limits = c(min(labels$label_y - 0.25),
-                                    top_of_range),
+      scale_y_continuous(limits = c(min(shutdown$value),
+                                    max(c(102, shutdown$value))),
                          labels = function(x) paste0(x - 100, "%")) +
       scale_x_date(date_labels = "%e\n%b",
                    breaks = c(min(shutdown_df$date),

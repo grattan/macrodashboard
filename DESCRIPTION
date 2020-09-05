@@ -27,7 +27,8 @@ Imports:
     utils,
     shiny,
     purrr,
-    tibble
+    tibble,
+    shinydashboard
 Remotes:
     grattan/grattantheme
 Depends: 

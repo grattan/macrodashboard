@@ -1,76 +1,92 @@
 #' @import shiny
+#' @import shinydashboard
 
-dash_app <- function(...) {
+sidebar <- dashboardSidebar(
+  sidebarMenu(
+    menuItem("Housing", tabName = "housing", icon = icon("home")),
+    menuItem("Inflation", tabName = "inflation", icon = icon("dollar-sign"))
+  )
+)
 
-  dash_data <- load_data(named_urls)
-  corelogic_df <- dash_data$corelogic
 
-  # Define UI for application that draws a histogram
-  ui <- fluidPage(
+tab_housing <- tabItem(tabName = "housing",
+                          fluidRow(plotOutput("plot1")),
+                          fluidRow(
+                            box(title = "Dates",
+                                                uiOutput("dates_slider")),
+                            box(title = "Download plot",
+                                                downloadButton("plot_download", "Download plot"))
+                          )
+  )
 
-    # Application title
-    titlePanel("A graph"),
 
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-      sidebarPanel(
-        uiOutput("dates_slider"),
-        downloadButton("plot_download", "Download plot")
-      ),
+tab_inflation <- tabItem(tabName = "inflation",
+                         h2("Widgets tab content"))
 
-      # Show a plot of the generated distribution
-      mainPanel(
-        plotOutput("plot")
-      )
+body <- dashboardBody(
+    tabItems(
+      # First tab content
+      tab_housing,
+
+      # Second tab content
+      tab_inflation
+
     )
   )
 
-  # Define server logic required to draw a histogram
-  server <- function(input, output, session) {
+dash_ui <-   ui <- dashboardPage(
+  header = dashboardHeader(title = "Macro dashboard"),
+  sidebar = sidebar,
+  body = body
+)
 
-    output$dates_slider <- renderUI({
-      sliderInput("dates",
-                  label = "Dates",
-                  min = as.Date("1948-01-01"),
-                  max = as.Date(Sys.Date()),
-                  value = c(as.Date("1948-01-01"),
-                            Sys.Date()))
+dash_server <- function(input, output, session) {
 
-    })
+  dash_data <- load_data(named_urls)
 
-    # filtered_cpi <- reactive({
-    #   cpi %>%
-    #     filter(date >= input$dates[1] &
-    #              date <= input$dates[2])
-    # })
+  raw_plot <- reactive({
+    req(input$dates)
 
-    raw_plot <- reactive({
-      viz_corelogic_shutdown(corelogic_df)
-    })
+    dash_data$corelogic %>%
+      filter(date >= input$dates[1] &
+               date <= input$dates[2]) %>%
+      viz_corelogic_shutdown()
+  })
 
-    output$plot <- renderPlot(
-      {
-       raw_plot() %>%
+  output$plot1 <- renderPlot(
+    {
+      raw_plot() %>%
         wrap_labs("blog") %>%
         create_fullslide("blog")
-        },
-    width = 37.7952755906 * grattantheme:::chart_types$width[grattantheme:::chart_types$type == "blog"],
-    height = 37.7952755906 * grattantheme:::chart_types$height[grattantheme:::chart_types$type == "blog"]
-    )
+    }
+  )
 
-    output$plot_download <- downloadHandler(
-      filename = function() {
-        "corelogic.png"
-      },
+  output$dates_slider <- renderUI({
+    sliderInput("dates",
+                label = "Dates",
+                min = min(dash_data$corelogic$date),
+                max = max(dash_data$corelogic$date),
+                value = c(as.Date("2020-01-01"),
+                          Sys.Date()))
 
-      content = function(file) {
-        grattantheme::grattan_save(filename = file, object = raw_plot(), type = "blog")
-      }
+  })
 
-    )
-  }
 
-  # Run the application
-  shinyApp(ui = ui, server = server, ...)
+  output$plot_download <- downloadHandler(
+    filename = function() {
+      "corelogic.png"
+    },
+
+    content = function(file) {
+      grattantheme::grattan_save(filename = file, object = raw_plot(), type = "blog")
+    }
+
+  )
+
+}
+
+dash_app <- function(...) {
+
+  shinyApp(dash_ui, dash_server)
 
 }
