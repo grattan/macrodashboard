@@ -17,6 +17,6 @@ jobs:
         env:
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN}}
           SHINYAPPS_SECRET: ${{ secrets.SHINAPPYS_SECRET}}
-        run: Rscript -e 'Sys.setlocale(locale="en_AU.UTF-8")' -e 'rsconnect::setAccountInfo(name = "mattcowgill", token = Sys.getenv("SHINYAPPS_TOKEN"), secret = Sys.getenv("SHINYAPPS_SECRET"))'
+        run: Rscript -e 'Sys.setlocale(locale="en_AU.UTF-8")' -e 'rsconnect::setAccountInfo(name = "mattcowgill", token = Sys.getenv("$SHINYAPPS_TOKEN"), secret = Sys.getenv("$SHINYAPPS_SECRET"))'
       - name: deploy-app
         run: Rscript -e 'rsconnect::deployApp()'
