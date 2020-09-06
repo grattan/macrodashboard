@@ -1,15 +1,18 @@
 #' @import shiny
 #' @import shinydashboard
 
-sidebar <- dashboardSidebar(
+sidebar <- function(...) {
+  dashboardSidebar(
   sidebarMenu(
     menuItem("Housing", tabName = "housing", icon = icon("home")),
     menuItem("Inflation", tabName = "inflation", icon = icon("dollar-sign"))
   )
 )
+}
 
 
-tab_housing <- tabItem(tabName = "housing",
+tab_housing <- function(...) {
+  tabItem(tabName = "housing",
                           fluidRow(plotOutput("plot1")),
                           fluidRow(
                             box(title = "Dates",
@@ -18,26 +21,31 @@ tab_housing <- tabItem(tabName = "housing",
                                                 downloadButton("plot_download", "Download plot"))
                           )
   )
+}
 
-
-tab_inflation <- tabItem(tabName = "inflation",
+tab_inflation <- function(...) {
+  tabItem(tabName = "inflation",
                          h2("Widgets tab content"))
+}
 
-body <- dashboardBody(
+body <- function(...) {
+  dashboardBody(
     tabItems(
       # First tab content
-      tab_housing,
+      tab_housing(),
 
       # Second tab content
-      tab_inflation
+      tab_inflation()
 
     )
   )
+}
 
-dash_ui <-   ui <- dashboardPage(
+
+dash_ui <-   dashboardPage(
   header = dashboardHeader(title = "Macro dashboard"),
-  sidebar = sidebar,
-  body = body
+  sidebar = sidebar(),
+  body = body()
 )
 
 dash_server <- function(input, output, session) {

@@ -29,7 +29,7 @@ viz_corelogic_shutdown <- function(df) {
            label = paste0(if_else(change > 0, "+", ""),
                           round(change * 100, 1),
                           "%"),
-           label_y = value - 0.5)
+           label_y = value - 1.5)
 
   top_of_range <- max(c(102, max(shutdown$value)))
 
@@ -69,7 +69,7 @@ viz_corelogic_shutdown <- function(df) {
                     y = top_of_range - 0.1) +
       facet_wrap(~city) +
       theme_grattan() +
-      scale_y_continuous(limits = c(min(shutdown$value),
+      scale_y_continuous(limits = c(min(shutdown$value) - 2.5,
                                     max(c(102, shutdown$value))),
                          labels = function(x) paste0(x - 100, "%")) +
       scale_x_date(date_labels = "%e\n%b",
