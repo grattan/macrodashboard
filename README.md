@@ -15,6 +15,8 @@ status](https://travis-ci.org/mattcowgill/macrodashboard.svg?branch=master)](htt
 This repo contains builds a Shiny dashboard of graphs relevant to
 Grattan Institute’s work on macroeconomic policy.
 
+This is an *unfinished work in progress*.
+
 The live dashboard can be found at:
 <https://mattcowgill.shinyapps.io/macrodashboard/>
 
