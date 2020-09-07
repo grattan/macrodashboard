@@ -11,13 +11,11 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - name: Install shiny
         run: |
-          install.packages(c("shiny", "rsconnect"), type = "binary")
+          install.packages(c("shiny", "rsconnect", "remotes"), type = "binary")
+          remotes::install_deps()
         shell: Rscript {0}
-      - name: authorise-shiny
-        env:
-          #SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN}}
-          #SHINYAPPS_SECRET: ${{ secrets.SHINAPPYS_SECRET}}
-          TEST_SECRET: ${{ secrets.TEST_SECRET }}
-        #run: Rscript -e 'args <- tail(commandArgs(), 2)' -e 'rsconnect::setAccountInfo(name = "mattcowgill", token = args[1], secret = args[2])' -e '#rsconnect::deployApp()' $SHINYAPPS_TOKEN $SHINYAPPS_SECRET
-        run: Rscript -e 'secret <- as.numeric(tail(commandArgs(), 1))' -e 'print(secret + 1)' $TEST_SECRET
-
+      #- name: authorise-shiny
+      #  env:
+      #    SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN}}
+      #    SHINYAPPS_SECRET: ${{ secrets.SHINAPPYS_SECRET}}
+      #  run: Rscript -e 'args <- tail(commandArgs(), 2)' -e 'rsconnect::setAccountInfo(name = "mattcowgill", token = args[1], secret = args[2])' -e '#rsconnect::deployApp()' $SHINYAPPS_TOKEN $SHINYAPPS_SECRET
