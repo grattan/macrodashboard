@@ -12,7 +12,7 @@ jobs:
       - name: Install shiny
         run: |
           install.packages(c("shiny", "rsconnect", "remotes"), type = "binary")
-          remotes::install_deps()
+          remotes::install_deps(type = "binary", force = FALSE)
         shell: Rscript {0}
       #- name: authorise-shiny
       #  env:

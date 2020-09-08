@@ -5,9 +5,6 @@ account: mattcowgill
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2745928
-bundleId: 3596014
+bundleId: 3604217
 url: https://mattcowgill.shinyapps.io/macrodashboard/
-when: 1599304551.98753
-asMultiple: FALSE
-asStatic: FALSE
-ignoredFiles: tests/testthat.R|tests/testthat/Rplots.pdf|tests/testthat/test-load_data.R|tests/testthat/test-viz_corelogic.R
+when: 1599525405.08334
