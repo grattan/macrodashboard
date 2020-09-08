@@ -8,10 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          echo "Hello" > file.txt
       - uses: deka0106/upload-to-dropbox@v1
         with:
           dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          file: file.txt
-          path: file.txt
+          file: test.txt
+          path: test.txt
