@@ -4,11 +4,22 @@ on: [push, pull_request]
 name: save-to-dropbox
 
 jobs:
-  save-to-dropbox:
-    runs-on: macOS-latest
+  build:
+    runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - run: |
+          npm install
+      - run: |
+          npm run all
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          echo "Hello" > file.txt
       - uses: deka0106/upload-to-dropbox@v1
-      with:
-        dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-        file: test.txt
-        path: test.txt
+        with:
+          dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+          file: test.txt
+          path: test.txt
