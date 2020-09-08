@@ -5,7 +5,7 @@ name: save-to-dropbox
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
       - uses: deka0106/upload-to-dropbox@v1
