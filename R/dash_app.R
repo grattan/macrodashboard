@@ -44,11 +44,13 @@ body <- function(...) {
 }
 
 
-dash_ui <-   dashboardPage(
+dash_ui <-   function(...) {
+  dashboardPage(
   header = dashboardHeader(title = "Macro dashboard"),
   sidebar = sidebar(),
   body = body()
-)
+  )
+}
 
 dash_server <- function(input, output, session) {
 
@@ -79,6 +81,6 @@ dash_server <- function(input, output, session) {
 
 dash_app <- function(...) {
 
-  shinyApp(dash_ui, dash_server)
+  shinyApp(dash_ui(), dash_server)
 
 }
