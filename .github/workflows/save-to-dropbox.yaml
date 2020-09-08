@@ -3,6 +3,7 @@ on: [push, pull_request]
 
 name: save-to-dropbox
 
+jobs:
   test:
     runs-on: ubuntu-latest
     steps:
