@@ -12,4 +12,4 @@ jobs:
         with:
           dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
           file: temp/test.txt
-          path: temp/test.txt
+          path: /temp/test.txt
