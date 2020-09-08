@@ -1,6 +1,7 @@
+
+
 test_that("viz_corelogic_shutdown() creates a graph", {
-  corelogic_url <- "https://raw.githubusercontent.com/MattCowgill/macro_dashboard_data/master/data/corelogic_daily.csv"
-  corelogic_df <- readr::read_csv(corelogic_url)
+  corelogic_df <- load_data(named_urls["corelogic"])$corelogic
 
   corelogic_graph <- viz_corelogic_shutdown(corelogic_df)
 
