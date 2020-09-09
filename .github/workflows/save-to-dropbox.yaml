@@ -20,5 +20,5 @@ jobs:
       - uses: deka0106/upload-to-dropbox@v1
         with:
           dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          file: temp/test.txt
-          path: /temp/test.txt
+          file: inst/charts/test.png
+          path: /temp/test.png
