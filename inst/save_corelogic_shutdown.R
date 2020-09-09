@@ -1,4 +1,5 @@
 library(dplyr)
+pkgload::load_all()
 
 load_data(named_urls) %>%
   .$corelogic %>%
