@@ -19,5 +19,5 @@ jobs:
       - uses: MattCowgill/upload-to-dropbox@v1
         with:
           dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          file: inst/charts/test.png
-          path: "/Macro policy/Data and analysis/Macro/dashboard/macro_graphs/test.png"
+          file: inst/charts
+          path: "/Macro policy/Data and analysis/Macro/dashboard/macro_graphs"
