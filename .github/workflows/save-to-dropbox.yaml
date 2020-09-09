@@ -9,6 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
+      - name: Install packages
+        run: Rscript -e 'install.packages(c("dplyr", "here", "ggplot2"), type = "binary")'
       - uses: deka0106/upload-to-dropbox@v1
         with:
           dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
