@@ -11,8 +11,9 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - name: Install packages
         run: |
-          install.packages(c("here", "remotes"), type = "binary")
-          remotes::install_github("mattcowgill/macrodashboard", dependencies = "Imports")
+          install.packages(c("here", "pkgload", "remotes"), type = "binary")
+          remotes::install_deps(type = "binary")
+          pkgload::load_all()
         shell: Rscript {0}
       - name: Update graphs
         run: Rscript -e 'source(here::here("inst", "save_corelogic_shutdown.R"))'
