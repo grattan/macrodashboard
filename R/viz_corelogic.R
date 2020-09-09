@@ -12,6 +12,7 @@ viz_corelogic_shutdown <- function(df) {
   shutdown_date <- lubridate::ymd("2020-03-22")
 
   shutdown <- df %>%
+    filter(date >= as.Date("2020-01-01")) %>%
     select(-agg) %>%
     gather(key = city, value = value,
            -date) %>%
@@ -58,6 +59,7 @@ viz_corelogic_shutdown <- function(df) {
       grattan_label(data = labels_df,
                     aes(label = label,
                         y = label_y),
+                    nudge_x = -2,
                     hjust = 0.75,
                     size = 14) +
       grattan_label(data = ~filter(.,
