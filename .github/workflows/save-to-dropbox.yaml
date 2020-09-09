@@ -10,7 +10,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
       - name: Install packages
-        run: Rscript -e 'install.packages("remotes", type = "binary")' -e 'remotes::install_github("mattcowgill/macrodashboard", dependencies = "Imports")'
+        run: |
+          install.packages(c("here", "remotes"), type = "binary")
+          remotes::install_github("mattcowgill/macrodashboard", dependencies = "Imports")
+        shell: Rscript {0}
       - name: Update graphs
         run: Rscript -e 'source(here::here("inst", "save_corelogic_shutdown.R"))'
       - uses: deka0106/upload-to-dropbox@v1
