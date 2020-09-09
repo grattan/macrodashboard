@@ -8,6 +8,7 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
       - uses: deka0106/upload-to-dropbox@v1
         with:
           dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
