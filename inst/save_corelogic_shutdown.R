@@ -1,4 +1,4 @@
-
+library(dplyr)
 
 macrodashboard::load_data(named_urls) %>%
   .$corelogic %>%
