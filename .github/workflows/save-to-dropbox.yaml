@@ -11,6 +11,8 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - name: Install packages
         run: Rscript -e 'install.packages(c("dplyr", "here", "ggplot2"), type = "binary")'
+      - name: Update graphs
+        run: Rscript -e 'source(here::here("inst", "save_corelogic_shutdown.R"))'
       - uses: deka0106/upload-to-dropbox@v1
         with:
           dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}

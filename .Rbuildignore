@@ -7,3 +7,4 @@
 ^app\.R$
 ^rsconnect$
 ^data-raw$
+^\.httr-oauth$
