@@ -8,4 +8,4 @@ load_data(named_urls) %>%
   grattan_save(object = .,
                filename = here::here("inst", "charts", "test.png"),
                type = "blog",
-               save_pptx = T)
+               save_pptx = F)
