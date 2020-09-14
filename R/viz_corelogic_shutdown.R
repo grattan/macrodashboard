@@ -7,7 +7,7 @@
 #' @import grattantheme
 #' @importFrom patchwork plot_annotation
 
-viz_corelogic_shutdown <- function(df) {
+viz_corelogic_shutdown <- function(df = dash_data$corelogic) {
 
   shutdown_date <- lubridate::ymd("2020-03-22")
 

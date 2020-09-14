@@ -1,5 +1,31 @@
 #' @import shiny
 #' @import shinydashboard
+#'
+
+graph_ui <- function(id) {
+  div(style = "padding: 30px; background-color: rgba(217,217,217,0.1); border-style: solid; border-width: thin; border-color: #D9D9D9",
+  fluidRow(div(width = 12,
+               plotOutput(paste0(id, "_plot"),
+                          height = "500px"),
+               style = "max-width: 765px")
+           ),
+  br(),
+  fluidRow(
+    div(width = 4,
+        selectInput(paste0(id, "_type"),
+                    "Select plot type to download",
+                    choices = grattantheme:::chart_types$type[!is.na(grattantheme:::chart_types$pptx_template)],
+                    selected = "blog",
+                    multiple = FALSE),
+        radioButtons(paste0(id, "_filetype"),
+                     "Select plot format to download",
+                     choices = c("PNG", "PowerPoint"),
+                     selected = "PNG"),
+        downloadButton(paste0(id, "_download"), "Download plot")
+    )
+  )
+)
+}
 
 sidebar <- function(...) {
   dashboardSidebar(
@@ -30,28 +56,13 @@ tab_about <- function(...) {
 
 tab_unemployment <- function(...) {
   tabItem(tabName = "unemployment",
-          fluidRow(box("Unemployment goes here"))
-          )
+          graph_ui("unemp"))
+
 }
 
 tab_housing <- function(...) {
   tabItem(tabName = "housing",
-          fluidRow(div(plotOutput("plot1", height = "500px"), style = "max-width: 765px")),
-          fluidRow(
-            box(title = "Download plot",
-                selectInput("corelogic_type",
-                            "Select plot type to download",
-                            choices = grattantheme:::chart_types$type[!is.na(grattantheme:::chart_types$pptx_template)],
-                            selected = "blog",
-                            multiple = FALSE),
-                radioButtons("corelogic_filetype",
-                             "Select plot format to download",
-                             choices = c("PNG", "PowerPoint"),
-                             selected = "PNG"),
-                downloadButton("corelogic_download", "Download plot")
-                                ),
-            width = 6)
-
+          graph_ui("corelogic")
   )
 }
 
@@ -80,7 +91,10 @@ dash_ui <-   function(...) {
   )
 }
 
-dl_button_server <- function(id, plot, type, filetype) {
+dl_button_server <- function(id,
+                             plot = sym(paste0(id, "_raw_plot()")),
+                             type = input[[paste0(id, "_type")]],
+                             filetype = input[[paste0(id, "_filetype")]]) {
 
   moduleServer(id, function(input, output, session) {
 
@@ -108,26 +122,30 @@ dl_button_server <- function(id, plot, type, filetype) {
 
 dash_server <- function(input, output, session) {
 
-  dash_data <- load_data(named_urls)
+  dash_data <- load_data()
 
-  raw_plot <- reactive({
-    dash_data$corelogic %>%
-      filter(date >= as.Date("2020-01-01")) %>%
-      viz_corelogic_shutdown()
+  # Unemployment server logic ----
+  unemp_raw_plot <- reactive({
+    viz_unemp_rate(dash_data$lfs_m_1)
   })
 
-  output$plot1 <- renderPlot(
-    {
-      raw_plot() %>%
-        wrap_labs("normal")
-    }
-  )
+  output$unemp_plot <- renderPlot({
+    wrap_labs(unemp_raw_plot(), "normal")
+  })
 
+  output$unemp_download <- dl_button_server("unemp")
 
-  output$corelogic_download <- dl_button_server("corelogic",
-                                           plot = raw_plot(),
-                                           type = input$corelogic_type,
-                                           filetype = input$corelogic_filetype)
+  # Corelogic shutdown server logic ----
+  corelogic_raw_plot <- reactive({
+    viz_corelogic_shutdown(dash_data$corelogic)
+  })
+
+  output$corelogic_plot <- renderPlot({
+       wrap_labs(corelogic_raw_plot(), "normal")
+    })
+
+  output$corelogic_download <- dl_button_server("corelogic")
+
 
 }
 
