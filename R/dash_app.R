@@ -1,10 +1,19 @@
 #' @import shiny
 #' @import shinydashboard
-#'
 
-graph_ui <- function(id) {
-  div(style = "padding: 30px; background-color: rgba(217,217,217,0.1); border-style: solid; border-width: thin; border-color: #D9D9D9",
-  fluidRow(div(width = 12,
+graph_ui <- function(id,
+                     input_fn1 = function(){},
+                     input_fn2 = function(){},
+                     input_fn3 = function(){}) {
+  div(style = "padding: 30px; background-color: rgba(217,217,217,0.5); border-style: solid; border-width: thin; border-color: #D9D9D9",
+      fluidRow(column(width = 4,
+                   input_fn1()
+                   ),
+               column(width = 4,
+                   input_fn2()),
+               column(width = 4,
+                   input_fn3())),
+  fluidRow(column(width = 12,
                plotOutput(paste0(id, "_plot"),
                           height = "500px"),
                style = "max-width: 765px")
@@ -14,7 +23,9 @@ graph_ui <- function(id) {
     div(width = 4,
         selectInput(paste0(id, "_type"),
                     "Select plot type to download",
-                    choices = grattantheme:::chart_types$type[!is.na(grattantheme:::chart_types$pptx_template)],
+                    choices = c("normal", "wholecolumn", "fullpage",
+                                "fullslide", "fullslide_169",
+                                "blog", "blog_half"),
                     selected = "blog",
                     multiple = FALSE),
         radioButtons(paste0(id, "_filetype"),
@@ -56,7 +67,15 @@ tab_about <- function(...) {
 
 tab_unemployment <- function(...) {
   tabItem(tabName = "unemployment",
-          graph_ui("unemp"))
+          graph_ui("unemp",
+                   input_fn1 = function() {
+                     sliderInput("unemp_dates",
+                                 "Choose dates to show",
+                                 min = as.Date("1901-06-30"),
+                                 max = Sys.Date(),
+                                 value = c(Sys.Date() - lubridate::years(40),
+                                           Sys.Date()))
+                   }))
 
 }
 
@@ -108,7 +127,7 @@ dl_button_server <- function(id,
         if (filetype == "PNG") {
           grattantheme::grattan_save(filename = file, object = plot, type = type)
         } else if (filetype == "PowerPoint") {
-          grattantheme:::grattan_save_pptx(p = plot, filename = file, type = type)
+          grattantheme::grattan_save_pptx(p = plot, filename = file, type = type)
         } else {
           stop("filetype must be one of: 'PNG' or 'PowerPoint'.")
         }
@@ -126,7 +145,9 @@ dash_server <- function(input, output, session) {
 
   # Unemployment server logic ----
   unemp_raw_plot <- reactive({
-    viz_unemp_rate(dash_data$lfs_m_1)
+    viz_unemp_rate(dash_data$lfs_m_1,
+                   min_date = input$unemp_dates[1],
+                   max_date = input$unemp_dates[2])
   })
 
   output$unemp_plot <- renderPlot({

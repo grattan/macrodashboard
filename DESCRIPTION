@@ -17,7 +17,7 @@ RoxygenNote: 7.1.1
 Suggests: 
     testthat
 Imports: 
-    grattantheme,
+    grattantheme (>= 0.8.2.1),
     patchwork,
     ggplot2,
     tidyr,
@@ -29,8 +29,10 @@ Imports:
     purrr,
     tibble,
     shinydashboard,
-    fst
+    fst,
+    auseconhist
 Remotes:
     grattan/grattantheme
+    mattcowgill/auseconhist
 Depends: 
     R (>= 2.10)

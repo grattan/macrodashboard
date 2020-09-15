@@ -45,12 +45,23 @@ viz_unemp_rate <- function(df = dash_data$lfs_m_1,
 
   latest_month <- lubridate::month(latest_date, label = TRUE, abbr = FALSE)
 
-  graph_title <- ifelse(days_since_prev_high > 365,
+  graph_title <- ifelse(days_since_prev_high > 365 | is.na(days_since_prev_high),
                         paste0("The unemployment rate is the highest it's been since ",
                                format(prev_high$date[1], "%B %Y")),
                         paste0("The unemployment rate ", sign_of_monthly_change,
                                " by ", round(monthly_change, 2),
                                " percentage points in ", latest_month))
+
+  graph_title <- case_when(
+    days_since_prev_high > 365 ~ paste0("The unemployment rate is the highest it's been since ",
+                                        format(prev_high$date[1], "%B %Y")),
+    days_since_prev_high < 365 ~ paste0("The unemployment rate ", sign_of_monthly_change,
+                                        " by ", round(monthly_change, 2),
+                                        " percentage points in ", latest_month),
+    is.na(days_since_prev_high) ~ paste0("The unemployment rate is ",
+                                         round(latest_ur, 1), "%")
+
+  )
 
   # Construct notes and source
 
@@ -76,7 +87,8 @@ viz_unemp_rate <- function(df = dash_data$lfs_m_1,
     labs(title = graph_title,
          subtitle = paste0("Unemployment rate, ", format(min_date, "%B %Y"),
                            " to ", format(max_date, "%B %Y")),
-         caption = source_with_notes )
+         caption = source_with_notes ) +
+    theme(axis.title.x = element_blank() )
 
 }
 
