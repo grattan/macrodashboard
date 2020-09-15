@@ -8,14 +8,13 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-      #- uses: r-lib/actions/setup-r@master
-      #- name: Install shiny
-      #  run: |
-      #    install.packages(c("shiny", "rsconnect", "remotes"), type = "binary")
-      #    remotes::install_deps(type = "binary", force = FALSE)
-      #  shell: Rscript {0}
-      #- name: authorise-shiny
-      #  env:
-      #    SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN}}
-      #    SHINYAPPS_SECRET: ${{ secrets.SHINAPPYS_SECRET}}
-      #  run: Rscript -e 'args <- tail(commandArgs(), 2)' -e 'rsconnect::setAccountInfo(name = "mattcowgill", token = args[1], secret = args[2])' -e '#rsconnect::deployApp()' $SHINYAPPS_TOKEN $SHINYAPPS_SECRET
+      - uses: r-lib/actions/setup-r@master
+      - name: Install shiny
+       run: |
+         install.packages(c("shiny", "rsconnect", "remotes"), type = "binary")
+         remotes::install_deps(type = "binary", force = FALSE)
+       shell: Rscript {0}
+      - name: authorise-shiny
+       run: |
+       Rscript -e "rsconnect::setAccountInfo(name='mattcowgill', token=${{secrets.SHINYAPPS_TOKEN}}, secret=${{secrets.SHINYAPPS_SECRET}})"
+       Rscript -e "rsconnect::deployApp(appName = 'macrodashboard')"
