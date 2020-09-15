@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
-      - name: Install packages
+      - name: install-packages
        run: |
          Rscript -e "install.packages(c('shiny', 'rsconnect', 'remotes'), type = 'binary')""
          Rscript -e "remotes::install_deps(type = 'binary', force = FALSE)"
