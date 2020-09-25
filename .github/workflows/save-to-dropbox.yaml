@@ -1,23 +1,23 @@
-
-on: [push, pull_request]
-
-name: save-to-dropbox
-
-jobs:
-  test:
-    runs-on: macOS-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@master
-      - name: Install packages
-        run: |
-          install.packages(c("here", "pkgload", "remotes"), type = "binary")
-          remotes::install_deps(type = "binary")
-        shell: Rscript {0}
-      - name: Update graphs
-        run: Rscript -e 'source(here::here("inst", "save_corelogic_shutdown.R"))'
-      - uses: MattCowgill/upload-to-dropbox@v1
-        with:
-          dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          file: inst/charts/test.png
-          path: "/Macro policy/Data and analysis/Macro/dashboard/macro_graphs/test.png"
+#
+# on: [push, pull_request]
+#
+# name: save-to-dropbox
+#
+# jobs:
+#   test:
+#     runs-on: macOS-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: r-lib/actions/setup-r@master
+#       - name: Install packages
+#         run: |
+#           install.packages(c("here", "pkgload", "remotes"), type = "binary")
+#           remotes::install_deps(type = "binary")
+#         shell: Rscript {0}
+#       - name: Update graphs
+#         run: Rscript -e 'source(here::here("inst", "save_corelogic_shutdown.R"))'
+#       - uses: MattCowgill/upload-to-dropbox@v1
+#         with:
+#           dropbox_access_token: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+#           file: inst/charts/test.png
+#           path: "/Macro policy/Data and analysis/Macro/dashboard/macro_graphs/test.png"

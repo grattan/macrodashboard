@@ -30,7 +30,8 @@ Imports:
     tibble,
     shinydashboard,
     fst,
-    auseconhist
+    auseconhist,
+    shinyjs
 Remotes:
     grattan/grattantheme,
     mattcowgill/auseconhist

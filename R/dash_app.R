@@ -1,6 +1,13 @@
 #' @import shiny
 #' @import shinydashboard
 
+download_data <- function() {
+  df <- load_data()
+  shinyjs::hide("loading_page")
+  shinyjs::show("main_content")
+  df
+}
+
 graph_ui <- function(id,
                      input_fn1 = function(){},
                      input_fn2 = function(){},
@@ -20,22 +27,27 @@ graph_ui <- function(id,
            ),
   br(),
   fluidRow(
-    div(width = 4,
-        selectInput(paste0(id, "_type"),
-                    "Select plot type to download",
-                    choices = c("normal", "wholecolumn", "fullpage",
-                                "fullslide", "fullslide_169",
-                                "blog", "blog_half"),
-                    selected = "blog",
-                    multiple = FALSE),
-        radioButtons(paste0(id, "_filetype"),
-                     "Select plot format to download",
-                     choices = c("PNG", "PowerPoint"),
-                     selected = "PNG"),
-        downloadButton(paste0(id, "_download"), "Download plot")
-    )
+    download_ui(paste0(id, "_download")
+                )
   )
 )
+}
+
+download_ui <- function(id) {
+  tagList(
+      selectInput(NS(id, "type"),
+                  "Select plot type to download",
+                  choices = c("normal", "wholecolumn", "fullpage",
+                              "fullslide", "fullslide_169",
+                              "blog", "blog_half"),
+                  selected = "blog",
+                  multiple = FALSE),
+      radioButtons(NS(id, "filetype"),
+                   "Select plot format to download",
+                   choices = c("PNG", "PowerPoint"),
+                   selected = "PNG"),
+      downloadButton(NS(id, "download"), "Download plot")
+  )
 }
 
 sidebar <- function(...) {
@@ -59,9 +71,18 @@ sidebar <- function(...) {
 
 tab_about <- function(...) {
   tabItem(tabName = "about",
-          fluidRow(box(width = 12,
-                       br(),
-                       "intro goes here"))
+          fluidRow(shinyjs::useShinyjs(),
+                   div(
+                     id = "loading_page",
+                     h2(" Loading data, please wait...")
+                   ),
+                   shinyjs::hidden(
+                     div(
+                       id = "main_content",
+                       " Data loaded, click away"
+                     )
+                   )
+                   )
           )
 }
 
@@ -110,38 +131,49 @@ dash_ui <-   function(...) {
   )
 }
 
-dl_button_server <- function(id,
-                             plot = sym(paste0(id, "_raw_plot()")),
-                             type = input[[paste0(id, "_type")]],
-                             filetype = input[[paste0(id, "_filetype")]]) {
+# dl_button_server <- function(id, plot, type, filetype) {
+#   moduleServer(id, function(input, output, session) {
+#
+#     downloadHandler(
+#       filename = function() {
+#         extension <- ifelse(filetype == "PNG", ".png", ".pptx")
+#         paste0(id, "_", type, extension)
+#       },
+#
+#       content = function(file) {
+#         if (filetype == "PNG") {
+#           grattantheme::grattan_save(filename = file, object = plot, type = type)
+#         } else if (filetype == "PowerPoint") {
+#           grattantheme::grattan_save_pptx(p = plot, filename = file, type = type)
+#         } else {
+#           stop("filetype must be one of: 'PNG' or 'PowerPoint'.")
+#         }
+#
+#       }
+#     )
+#   })
+# }
+
+dl_button_server <- function (id, obj, type) {
 
   moduleServer(id, function(input, output, session) {
-
-    downloadHandler(
+    output$download = downloadHandler(
       filename = function() {
-        extension <- ifelse(filetype == "PNG", ".png", ".pptx")
-        paste0(id, "_", type, extension)
+        "unemp.png"
       },
-
       content = function(file) {
-        if (filetype == "PNG") {
-          grattantheme::grattan_save(filename = file, object = plot, type = type)
-        } else if (filetype == "PowerPoint") {
-          grattantheme::grattan_save_pptx(p = plot, filename = file, type = type)
-        } else {
-          stop("filetype must be one of: 'PNG' or 'PowerPoint'.")
-        }
-
-      }
-    )
+        # ggplot2::ggsave(file, plot = obj)
+        grattantheme::grattan_save(filename = file,
+                                   object = obj,
+                                   type = type)
+      })
   })
 }
 
 
-
 dash_server <- function(input, output, session) {
 
-  dash_data <- load_data()
+  dash_data <- download_data()
 
   # Unemployment server logic ----
   unemp_raw_plot <- reactive({
@@ -154,7 +186,12 @@ dash_server <- function(input, output, session) {
     wrap_labs(unemp_raw_plot(), "normal")
   })
 
-  output$unemp_download <- dl_button_server("unemp")
+  dl_button_server("unemp_download",
+                   unemp_raw_plot() ,
+                   type = "blog"
+                   #type = "blog",
+                   #filetype = "PNG"
+                   )
 
   # Corelogic shutdown server logic ----
   corelogic_raw_plot <- reactive({
@@ -165,7 +202,7 @@ dash_server <- function(input, output, session) {
        wrap_labs(corelogic_raw_plot(), "normal")
     })
 
-  output$corelogic_download <- dl_button_server("corelogic")
+  # output$corelogic_download <- dl_button_server("corelogic", plot = corelogic_raw_plot())
 
 
 }
