@@ -17,7 +17,6 @@ graph_ui <- function(id,
                    )
                ),
       fluidRow(plotOutput(NS(id, "plot"))),
-      # fluidRow(downloadButton(NS(id, "download"), "Download!")),
       fluidRow(download_ui(id))
   )
 }
@@ -118,11 +117,8 @@ plot_server <- function(id, plot_function, data) {
                             paste0(id, ".png"),
                             paste0(id, ".pptx"))
 
-                     # paste0(id, ".png")
                    },
                    content = function(file) {
-                     # ggplot2::ggsave(file,
-                     #                 plot = filtered_plot())
 
                      if (input$filetype == "PNG") {
                        grattantheme::grattan_save(filename = file,
@@ -149,7 +145,6 @@ dash_server <- function(input, output, session) {
 
 dash_app <- function(...) {
 
-  app <- shinyApp(dash_ui(), dash_server)
+  shinyApp(dash_ui(), dash_server)
 
-  runApp(app)
 }
