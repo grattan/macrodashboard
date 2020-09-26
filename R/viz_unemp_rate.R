@@ -1,7 +1,12 @@
 
 viz_unemp_rate <- function(df = dash_data$lfs_m_1,
-                           min_date = max_date - lubridate::years(40),
-                           max_date = max(df$date)) {
+                           arg1 = c(max(df$date) - lubridate::years(40),
+                                     max(df$date))
+                           ) {
+
+  dates <- arg1
+  min_date <- dates[1]
+  max_date <- dates[2]
 
   # Load historical (pre-1978) unemp data
   lr_unemp <- auseconhist::lr_lfs %>%
