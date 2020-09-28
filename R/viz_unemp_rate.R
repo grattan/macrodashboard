@@ -1,8 +1,10 @@
 
-viz_unemp_rate <- function(df = dash_data$lfs_m_1,
+viz_unemp_rate <- function(data = load_data(),
                            arg1 = c(max(df$date) - lubridate::years(40),
                                      max(df$date))
                            ) {
+
+  df <- data$lfs_m_1
 
   dates <- arg1
   min_date <- dates[1]

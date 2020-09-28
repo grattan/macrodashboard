@@ -46,7 +46,10 @@ sidebar <- function(...) {
                icon = icon("bookmark")),
       menuItem("Unemployment",
                tabName = "unemployment",
-               icon = icon("briefcase"))
+               icon = icon("briefcase")),
+      menuItem("Housing",
+               tabName = "housing",
+               icon = icon("home"))
   )
 )
 }
@@ -82,12 +85,19 @@ tab_unemployment <- function(...) {
 
 }
 
+tab_housing <- function(...) {
+  tabItem(tabName = "housing",
+          graph_ui("corelogic",
+                   input_fn1 = function(id) {}))
+}
+
 
 body <- function(...) {
   dashboardBody(
     tabItems(
       tab_about(),
-      tab_unemployment()
+      tab_unemployment(),
+      tab_housing()
     )
   )
 }
@@ -103,13 +113,16 @@ dash_ui <-   function(...) {
 
 
 plot_server <- function(id, plot_function, data) {
+
   moduleServer(id,
                function(input, output, session) {
 
-                 filtered_plot <- reactive(plot_function(df = data,
+                 filtered_plot <- reactive(plot_function(data = data,
                                                          arg1 = input$arg1))
 
-                 output$plot <- renderPlot({filtered_plot()})
+                 output$plot <- renderPlot({
+                   wrap_labs(filtered_plot(), "normal")
+                   })
 
                  output$download = downloadHandler(
                    filename = function() {
@@ -139,8 +152,13 @@ dash_server <- function(input, output, session) {
 
   dash_data <- download_data()
 
-  plot_server("unemp", viz_unemp_rate, data = dash_data$lfs_m_1)
-
+  purrr::map2(
+    .x = c("unemp", "corelogic"),
+    .y = c(viz_unemp_rate,
+           viz_corelogic_shutdown),
+    .f = plot_server,
+    data = dash_data
+  )
 }
 
 dash_app <- function(...) {
