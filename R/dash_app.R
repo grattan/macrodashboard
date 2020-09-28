@@ -153,7 +153,8 @@ dash_server <- function(input, output, session) {
   dash_data <- download_data()
 
   purrr::map2(
-    .x = c("unemp", "corelogic"),
+    .x = c("unemp",
+           "corelogic"),
     .y = c(viz_unemp_rate,
            viz_corelogic_shutdown),
     .f = plot_server,
