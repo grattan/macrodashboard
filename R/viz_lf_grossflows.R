@@ -1,5 +1,5 @@
 
-viz_lf_grossflows <- function(data = load_data(named_urls["lfs_m_grossflows"]),
+viz_lf_grossflows <- function(data = load_data(),
                               arg1 = function() {}) {
 
   gf_tot <- data$lfs_m_grossflows
