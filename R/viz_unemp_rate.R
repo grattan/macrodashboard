@@ -1,7 +1,8 @@
 
 viz_unemp_rate <- function(data = load_data(),
                            arg1 = c(max(df$date) - lubridate::years(40),
-                                     max(df$date))
+                                     max(df$date)),
+                           arg2 = NULL
                            ) {
 
   df <- data$lfs_m_1

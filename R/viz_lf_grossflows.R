@@ -1,6 +1,7 @@
 
 viz_lf_grossflows <- function(data = load_data(),
-                              arg1 = function() {}) {
+                              arg1 = NULL,
+                              arg2 = NULL) {
 
   gf_tot <- data$lfs_m_grossflows
 

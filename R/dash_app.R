@@ -15,7 +15,8 @@ plot_server <- function(id, plot_function, data) {
                function(input, output, session) {
 
                  filtered_plot <- reactive(plot_function(data = data,
-                                                         arg1 = input$arg1))
+                                                         arg1 = input$arg1,
+                                                         arg2 = input$arg2))
 
                  output$plot <- renderPlot({
                    wrap_labs(filtered_plot(), "normal")
@@ -54,10 +55,12 @@ dash_server <- function(input, output, session) {
 
   purrr::map2(
     .x = c("unemp",
-           "corelogic",
+           "corelogic_shutdown_panel",
+           "corelogic_shutdown_lines",
            "gross_flows"),
     .y = c(viz_unemp_rate,
-           viz_corelogic_shutdown,
+           viz_corelogic_shutdown_panel,
+           viz_corelogic_shutdown_lines,
            viz_lf_grossflows),
     .f = plot_server,
     data = dash_data

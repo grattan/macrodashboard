@@ -1,5 +1,5 @@
 
-load_data <- function(urls = named_urls) {
+load_data <- function() {
 
   temp_file <- tempfile(fileext = ".rds")
   download.file(url = "https://github.com/MattCowgill/macro_dashboard_data/blob/master/data/all_data.rds?raw=TRUE",

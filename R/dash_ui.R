@@ -1,12 +1,20 @@
 graph_ui <- function(id,
-                     input_fn1 = function(id){}) {
+                     input_fn1 = function(id){},
+                     input_fn2 = function(id){}) {
   div(style = "padding: 30px; background-color: rgba(217,217,217,0.5); border-style: solid; border-width: thin; border-color: #D9D9D9",
       # Inputs above plot
       fluidRow(column(width = 4,
                       input_fn1(id)
-      )
+                      ),
+               column(width = 4,
+                      input_fn2(id))
+
       ),
-      fluidRow(plotOutput(NS(id, "plot"))),
+      fluidRow(div(
+        plotOutput(NS(id, "plot"),
+                          height = "500px"),
+        style = "max-width: 765px"
+        )),
       fluidRow(download_ui(id))
   )
 }
@@ -80,8 +88,24 @@ tab_unemployment <- function(...) {
 
 tab_housing <- function(...) {
   tabItem(tabName = "housing",
-          graph_ui("corelogic",
-                   input_fn1 = function(id) {}))
+          graph_ui("corelogic_shutdown_panel"),
+          br(),
+          graph_ui("corelogic_shutdown_lines",
+                   input_fn1 = function(id) {
+                     sliderInput(NS(id, "arg1"),
+                                 "Choose minimum date to show",
+                                 min = as.Date("2018-11-02"),
+                                 max = Sys.Date() - 1,
+                                 value = as.Date("2020-01-01"))
+                   },
+                   input_fn2 = function(id) {
+                     sliderInput(NS(id, "arg2"),
+                                 "Choose date to base index",
+                                 min = as.Date("2018-11-02"),
+                                 max = Sys.Date(),
+                                 value = as.Date("2020-03-22"))
+                   }
+                   ))
 }
 
 tab_gross_flows<- function(...) {

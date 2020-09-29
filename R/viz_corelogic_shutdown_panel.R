@@ -1,4 +1,3 @@
-# URL: "https://raw.githubusercontent.com/MattCowgill/macro_dashboard_data/master/data/corelogic_daily.csv"
 
 #' @import dplyr
 #' @import tidyr
@@ -7,23 +6,26 @@
 #' @import grattantheme
 #' @importFrom patchwork plot_annotation
 
-viz_corelogic_shutdown <- function(data = load_data(),
-                                   arg1 = function() {}) {
+viz_corelogic_shutdown_panel <- function(data = load_data(),
+                                   arg1 = NULL,
+                                   arg2 = NULL) {
 
   df <- data$corelogic
 
   shutdown_date <- lubridate::ymd("2020-03-22")
 
   shutdown <- df %>%
-    filter(date >= as.Date("2020-01-01")) %>%
     select(-agg) %>%
-    gather(key = city, value = value,
-           -date) %>%
+    filter(date >= as.Date("2020-01-01")) %>%
+    pivot_longer(cols = -date,
+                 names_to = "city") %>%
+    # gather(key = city, value = value,
+    #        -date) %>%
     mutate(city = tools::toTitleCase(city)) %>%
     group_by(city) %>%
-    mutate(value = 100 * (value / value[date == shutdown_date])) %>%
-    arrange(city, date) %>%
-    ungroup()
+    mutate(value = 100 * (value / value[date == shutdown_date])) #%>%
+    # arrange(city, date) %>%
+    # ungroup()
 
 
   labels <- shutdown %>%
