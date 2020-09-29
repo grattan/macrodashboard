@@ -1,5 +1,5 @@
 test_that("load_data() loads data", {
-  dash_data <- load_data(named_urls)
+  dash_data <- load_data()
 
   expect_type(dash_data, "list")
   expect_equal(length(dash_data), length(named_urls))
