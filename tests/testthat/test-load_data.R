@@ -1,4 +1,7 @@
 test_that("load_data() loads data", {
+
+  testthat::skip_if_offline("github.com")
+
   dash_data <- load_data()
 
   expect_type(dash_data, "list")

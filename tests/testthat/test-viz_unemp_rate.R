@@ -1,6 +1,8 @@
 
 
 test_that("viz_unemp_rate() creates a graph", {
+  testthat::skip_if_offline("github.com")
+
   df <- load_data(named_urls["lfs_m_1"])
 
   graph <- viz_unemp_rate(df)
