@@ -110,7 +110,14 @@ tab_housing <- function(...) {
 
 tab_gross_flows<- function(...) {
   tabItem(tabName = "gross_flows",
-          graph_ui("gross_flows"))
+          graph_ui("gross_flows",
+                   input_fn1 = function(id) {
+                     sliderInput(NS(id, "arg1"),
+                                 "Choose minimum date to show",
+                                 min = as.Date("2000-09-01"),
+                                 max = Sys.Date() - 90,
+                                 value = as.Date("2000-09-01"))
+                   }))
 
 }
 

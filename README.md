@@ -35,11 +35,9 @@ The ‘R’ folder of this repo contains:
 
   - files beginning with `viz_`. These take a dataframe as input and
     return a ggplot2 plot as output. There is one function per file.
-  - `dash_app.R`. This contains the Shiny app.
+  - `dash_app.R`. This contains the server-side code for the Shiny app.
+  - `dash_ui.R`. This contains the UI code for the Shiny app.
   - `globals.R`. This file defines global variables, to prevent warnings
     regarding functions that use non-standard evaluation.
   - `load_data.R` This file contains a function (`load_data()`) that
-    gets data from the `macro_data_dashboard` repo. Note that it takes
-    as input a named vector of URLs for the data files. A vector called
-    `named_urls` is included as internal data and should be updated via
-    `data-raw` if new data is added to `macro_dashboard_data`.
+    gets data from the `macro_data_dashboard` repo.
