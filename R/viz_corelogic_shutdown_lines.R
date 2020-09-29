@@ -87,5 +87,12 @@ viz_corelogic_shutdown_lines <- function(data = load_data(),
       axis.title = element_blank(),
       axis.text.x = element_text(size = 14),
       panel.spacing = unit(1.5, "lines")
+    ) +
+    labs(
+      title = "House price changes in Australian capital cities",
+      subtitle = paste0("Cumulative change in home values since ",
+                        format(index_date, "%d %B %Y"),
+                        " (per cent)"),
+      caption = "Sources: Corelogic and Grattan analysis."
     )
 }
