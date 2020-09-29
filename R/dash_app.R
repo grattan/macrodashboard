@@ -31,8 +31,11 @@ plot_server <- function(id, plot_function, data) {
                    content = function(file) {
 
                      if (input$filetype == "PNG") {
+                       obj <- filtered_plot() +
+                         theme_grattan(base_family = "Arial")
+
                        grattantheme::grattan_save(filename = file,
-                                                object = filtered_plot(),
+                                                object = obj,
                                                 type = input$type)
                      } else {
                        grattantheme::grattan_save_pptx(p = filtered_plot(),
