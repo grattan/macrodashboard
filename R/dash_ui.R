@@ -15,26 +15,37 @@ graph_ui <- function(id,
                           height = "500px"),
         style = "max-width: 765px"
         )),
-      fluidRow(download_ui(id))
+      fluidRow(column(download_graph_ui(id),
+                      width = 9))
   )
 }
 
-download_ui <- function(id) {
-  tagList(
-    selectInput(NS(id, "type"),
-                "Select plot type to download",
-                choices = c("normal", "wholecolumn", "fullpage",
-                            "fullslide", "fullslide_169",
-                            "blog", "blog_half"),
-                selected = "blog",
-                multiple = FALSE),
-    radioButtons(NS(id, "filetype"),
-                 "Select plot format to download",
-                 choices = c("PNG", "PowerPoint"),
-                 selected = "PNG"),
-    downloadButton(NS(id, "download"), "Download plot")
+download_graph_ui <- function(id) {
+  fluidRow(
+    column(
+      selectInput(NS(id, "type"),
+                  "Select plot type to download",
+                  choices = c("normal", "wholecolumn", "fullpage",
+                              "fullslide", "fullslide_169",
+                              "blog", "blog_half"),
+                  selected = "blog",
+                  multiple = FALSE),
+      width = 6),
+    column(
+      radioButtons(NS(id, "filetype"),
+                   "Select plot format to download",
+                   choices = c("PNG", "PowerPoint"),
+                   selected = "PNG"),
+      width = 6),
+    column(
+      downloadButton(NS(id, "download"), "Download plot"),
+      width = 6),
+    column(
+      downloadButton(NS(id, "download_data"), "Download chart data"),
+      width = 6)
   )
 }
+
 
 sidebar <- function(...) {
   dashboardSidebar(

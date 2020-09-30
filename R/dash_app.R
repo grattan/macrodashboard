@@ -22,7 +22,7 @@ plot_server <- function(id, plot_function, data) {
                    wrap_labs(filtered_plot(), "normal")
                    })
 
-                 output$download = downloadHandler(
+                 output$download <- downloadHandler(
                    filename = function() {
                      ifelse(input$filetype == "PNG",
                             paste0(id, ".png"),
@@ -45,6 +45,19 @@ plot_server <- function(id, plot_function, data) {
 
                      }
                    })
+
+                 output$download_data <- downloadHandler(
+                   filename = function() {
+                     paste0(id, ".xlsx")
+                   },
+                   content = function(file) {
+                       obj <- filtered_plot()
+
+                       grattantheme::save_chartdata(filename = file,
+                                                    object = obj)
+
+                   })
+
                })
 }
 
