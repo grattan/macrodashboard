@@ -68,10 +68,12 @@ dash_server <- function(input, output, session) {
 
   purrr::map2(
     .x = c("unemp",
+           "hours_pop",
            "corelogic_shutdown_panel",
            "corelogic_shutdown_lines",
            "gross_flows"),
     .y = c(viz_unemp_rate,
+           viz_hours_pop,
            viz_corelogic_shutdown_panel,
            viz_corelogic_shutdown_lines,
            viz_lf_grossflows),

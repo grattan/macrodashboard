@@ -10,12 +10,12 @@ viz_corelogic_shutdown_panel <- function(data = load_data(),
                                    arg1 = NULL,
                                    arg2 = NULL) {
 
-  df <- data$corelogic
+  df <- data[["corelogic_daily"]]
+  df <- df[,-7]
 
-  shutdown_date <- lubridate::ymd("2020-03-22")
+  shutdown_date <- as.Date("2020-03-22")
 
   shutdown <- df %>%
-    select(-agg) %>%
     filter(date >= as.Date("2020-01-01")) %>%
     pivot_longer(cols = -date,
                  names_to = "city") %>%
@@ -23,9 +23,7 @@ viz_corelogic_shutdown_panel <- function(data = load_data(),
     #        -date) %>%
     mutate(city = tools::toTitleCase(city)) %>%
     group_by(city) %>%
-    mutate(value = 100 * (value / value[date == shutdown_date])) #%>%
-    # arrange(city, date) %>%
-    # ungroup()
+    mutate(value = 100 * (value / value[date == shutdown_date]))
 
 
   labels <- shutdown %>%

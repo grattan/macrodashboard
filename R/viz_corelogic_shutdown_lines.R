@@ -3,7 +3,7 @@
 viz_corelogic_shutdown_lines <- function(data = load_data(),
                                          arg1 = as.Date("2020-01-01"),
                                          arg2 = as.Date("2020-03-22")) {
-  df <- data$corelogic
+  df <- data[["corelogic_daily"]]
 
   min_date <- arg1
   index_date <- arg2

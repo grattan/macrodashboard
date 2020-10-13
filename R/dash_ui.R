@@ -50,18 +50,22 @@ download_graph_ui <- function(id) {
 sidebar <- function(...) {
   dashboardSidebar(
     sidebarMenu(
+      # style = "position: fixed; overflow: visible;",
       menuItem("About",
                tabName = "about",
                icon = icon("bookmark")),
+      menuItem("Housing",
+               tabName = "housing",
+               icon = icon("home")),
       menuItem("Unemployment",
                tabName = "unemployment",
                icon = icon("briefcase")),
+      menuItem("Hours worked",
+               tabName = "hours_worked",
+               icon = icon("chart-area")),
       menuItem("Labour force flows",
                tabName = "gross_flows",
-               icon = icon("wind")),
-      menuItem("Housing",
-               tabName = "housing",
-               icon = icon("home"))
+               icon = icon("wind"))
     )
   )
 }
@@ -94,6 +98,13 @@ tab_unemployment <- function(...) {
                                  value = c(Sys.Date() - lubridate::years(40),
                                            Sys.Date()))
                    }))
+
+}
+
+tab_hours_worked <- function(...) {
+  tabItem(tabName = "hours_worked",
+          graph_ui("hours_pop")
+                   )
 
 }
 
@@ -134,9 +145,11 @@ tab_gross_flows<- function(...) {
 
 body <- function(...) {
   dashboardBody(
+    tags$script(HTML("$('body').addClass('fixed');")),
     tabItems(
       tab_about(),
       tab_unemployment(),
+      tab_hours_worked(),
       tab_gross_flows(),
       tab_housing()
     )
@@ -146,6 +159,7 @@ body <- function(...) {
 
 dash_ui <-   function(...) {
   dashboardPage(
+    skin = "yellow",
     header = dashboardHeader(title = "Macro dashboard"),
     sidebar = sidebar(),
     body = body()
