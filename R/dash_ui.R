@@ -80,8 +80,8 @@ sidebar <- function(...) {
         tabName = "unemployment",
         icon = icon("briefcase")
       ),
-      menuItem("Hours worked",
-        tabName = "hours_worked",
+      menuItem("Employment + hours",
+        tabName = "emp_hours",
         icon = icon("chart-area")
       ),
       menuItem("Labour force flows",
@@ -143,10 +143,28 @@ tab_unemployment <- function(...) {
   )
 }
 
-tab_hours_worked <- function(...) {
+tab_emphours <- function(...) {
   tabItem(
-    tabName = "hours_worked",
-    graph_ui("hours_pop")
+    tabName = "emp_hours",
+    graph_ui("hours_pop",
+             title = "Hours per head of population (civilians aged 15+)"),
+    graph_ui("viz_emphours_sex_recessions",
+             title = "Recessions compared by sex",
+             input_fn1 = function(id) {
+               selectInput(NS(id, "arg1"),
+                           "Select measure of interest",
+                           choices = c("Employment" = "employment",
+                                       "Total hours worked" = "hours",
+                                       "Hours per head of population" = "hours_pop"),
+                           selected = "employment")
+             },
+             input_fn2 = function(id) {
+               selectInput(NS(id, "arg2"),
+                           "Facet on recession or sex?",
+                           choices = c("Recession" = "recession",
+                                       "Sex" = "sex"),
+                           selected = "recession")
+             })
   )
 }
 
@@ -198,7 +216,7 @@ body <- function(...) {
     tabItems(
       tab_about(),
       tab_unemployment(),
-      tab_hours_worked(),
+      tab_emphours(),
       tab_gross_flows(),
       tab_housing()
     )

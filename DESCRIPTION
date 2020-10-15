@@ -38,7 +38,9 @@ Imports:
     rlang,
     readabs,
     forcats,
-    stringr
+    stringr,
+    gt,
+    zoo
 Remotes:
     grattan/grattantheme,
     mattcowgill/auseconhist
