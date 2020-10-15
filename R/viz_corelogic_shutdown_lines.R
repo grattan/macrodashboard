@@ -90,9 +90,11 @@ viz_corelogic_shutdown_lines <- function(data = load_data(),
     ) +
     labs(
       title = "House price changes in Australian capital cities",
-      subtitle = paste0("Cumulative change in home values since ",
-                        format(index_date, "%d %B %Y"),
-                        " (per cent)"),
+      subtitle = paste0(
+        "Cumulative change in home values since ",
+        format(index_date, "%d %B %Y"),
+        " (per cent)"
+      ),
       caption = "Sources: Corelogic and Grattan analysis."
     )
 }

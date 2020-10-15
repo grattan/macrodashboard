@@ -1,10 +1,10 @@
 
 viz_unemp_rate <- function(data = load_data(),
-                           arg1 = c(max(df$date) - lubridate::years(40),
-                                     max(df$date)),
-                           arg2 = NULL
-                           ) {
-
+                           arg1 = c(
+                             max(df$date) - lubridate::years(40),
+                             max(df$date)
+                           ),
+                           arg2 = NULL) {
   df <- data$lfs_m_1
 
   dates <- arg1
@@ -35,8 +35,10 @@ viz_unemp_rate <- function(data = load_data(),
     pull(unemp_rate)
 
   prev_high <- unemp %>%
-    filter(unemp_rate >= latest_ur,
-           date != latest_date) %>%
+    filter(
+      unemp_rate >= latest_ur,
+      date != latest_date
+    ) %>%
     arrange(desc(date)) %>%
     filter(row_number() == 1)
 
@@ -54,21 +56,31 @@ viz_unemp_rate <- function(data = load_data(),
   latest_month <- lubridate::month(latest_date, label = TRUE, abbr = FALSE)
 
   graph_title <- ifelse(days_since_prev_high > 365 | is.na(days_since_prev_high),
-                        paste0("The unemployment rate is the highest it's been since ",
-                               format(prev_high$date[1], "%B %Y")),
-                        paste0("The unemployment rate ", sign_of_monthly_change,
-                               " by ", round(monthly_change, 2),
-                               " percentage points in ", latest_month))
+    paste0(
+      "The unemployment rate is the highest it's been since ",
+      format(prev_high$date[1], "%B %Y")
+    ),
+    paste0(
+      "The unemployment rate ", sign_of_monthly_change,
+      " by ", round(monthly_change, 2),
+      " percentage points in ", latest_month
+    )
+  )
 
   graph_title <- case_when(
-    days_since_prev_high > 365 ~ paste0("The unemployment rate is the highest it's been since ",
-                                        format(prev_high$date[1], "%B %Y")),
-    days_since_prev_high < 365 ~ paste0("The unemployment rate ", sign_of_monthly_change,
-                                        " by ", round(monthly_change, 2),
-                                        " percentage points in ", latest_month),
-    is.na(days_since_prev_high) ~ paste0("The unemployment rate is ",
-                                         round(latest_ur, 1), "%")
-
+    days_since_prev_high > 365 ~ paste0(
+      "The unemployment rate is the highest it's been since ",
+      format(prev_high$date[1], "%B %Y")
+    ),
+    days_since_prev_high < 365 ~ paste0(
+      "The unemployment rate ", sign_of_monthly_change,
+      " by ", round(monthly_change, 2),
+      " percentage points in ", latest_month
+    ),
+    is.na(days_since_prev_high) ~ paste0(
+      "The unemployment rate is ",
+      round(latest_ur, 1), "%"
+    )
   )
 
   # Construct notes and source
@@ -76,7 +88,8 @@ viz_unemp_rate <- function(data = load_data(),
   graph_source <- case_when(
     min_date >= as.Date("1978-02-01") ~ "ABS Labour Force (cat. no. 6202.0).",
     min_date >= as.Date("1966-08-01") ~ "ABS Labour Force (cat. no. 6202.0) and ABS Labour Force Historical Timeseries (cat. no. 6204.0.55.001).",
-    TRUE ~ "ABS Labour Force (cat. no. 6202.0),  ABS Labour Force Historical Timeseries (cat. no. 6204.0.55.001), and Butlin (1977).")
+    TRUE ~ "ABS Labour Force (cat. no. 6202.0),  ABS Labour Force Historical Timeseries (cat. no. 6204.0.55.001), and Butlin (1977)."
+  )
 
   graph_notes <- case_when(
     min_date >= as.Date("1978-02-01") ~ "Monthly seasonally adjusted data.",
@@ -84,19 +97,30 @@ viz_unemp_rate <- function(data = load_data(),
     TRUE ~ "Monthly seasonally adjusted data from 1978, quarterly unadjusted data from 1966 to 1978, annual data prior to 1966."
   )
 
+  latest_month <- format(max(unemp$date), "%B %Y")
+
+  graph_notes <- paste0(
+    graph_notes,
+    " Latest data is from ",
+    latest_month
+  )
+
   source_with_notes <- paste("Notes:", graph_notes, "Source:", graph_source,
-                             sep = " ")
+    sep = " "
+  )
 
   unemp %>%
     ggplot(aes(x = date, y = unemp_rate)) +
     geom_line() +
     theme_grattan() +
     grattan_y_continuous(limits = c(0, ceiling(max(unemp$unemp_rate)))) +
-    labs(title = graph_title,
-         subtitle = paste0("Unemployment rate, ", format(min_date, "%B %Y"),
-                           " to ", format(max_date, "%B %Y")),
-         caption = source_with_notes ) +
-    theme(axis.title.x = element_blank() )
-
+    labs(
+      title = graph_title,
+      subtitle = paste0(
+        "Unemployment rate, ", format(min_date, "%B %Y"),
+        " to ", format(max_date, "%B %Y")
+      ),
+      caption = source_with_notes
+    ) +
+    theme(axis.title.x = element_blank())
 }
-
