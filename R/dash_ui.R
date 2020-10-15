@@ -1,10 +1,13 @@
 graph_ui <- function(id,
+                     title = "",
                      input_fn1 = function(id) {},
                      input_fn2 = function(id) {}) {
   div(
     style = "padding: 30px; background-color: rgba(217,217,217,0.5); border-style: solid; border-width: thin; border-color: #D9D9D9",
     # Inputs above plot
     fluidRow(
+      column(width = 12,
+             h3(strong(title))),
       column(
         width = 4,
         input_fn1(id)
@@ -112,6 +115,7 @@ tab_unemployment <- function(...) {
   tabItem(
     tabName = "unemployment",
     graph_ui("unemp",
+      title = "Unemployment rate",
       input_fn1 = function(id) {
         sliderInput(NS(id, "arg1"),
           "Choose dates to show",
@@ -125,6 +129,7 @@ tab_unemployment <- function(...) {
       }
     ),
     graph_ui("unemp_age_dots",
+      title = "Unemployment and underemployment by age",
       input_fn1 = function(id) {
         sliderInput(NS(id, "arg1"),
           "Choose initial date to show",
