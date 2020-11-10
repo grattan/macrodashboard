@@ -1,14 +1,15 @@
 #' @importFrom stats reorder
-viz_payrolls_construction_bystate <- function(data = load_data(),
+viz_payrolls_byind_bystate <- function(data = load_data(),
                                               arg1 = "Construction",
                                               arg2 = NULL) {
   df <- data$payrolls_industry_jobs
+  focus_industry <- arg1
 
   df$industry <- gsub("[[:alpha:]]-", "", df$industry)
 
   chart_data <- df %>%
     filter(
-      .data$industry == "Construction",
+      .data$industry == focus_industry,
       .data$age == "All ages",
       .data$sex == "Persons",
       .data$state %in% c("SA", "WA", "QLD", "VIC", "NSW")
@@ -17,21 +18,23 @@ viz_payrolls_construction_bystate <- function(data = load_data(),
     filter(.data$date >= as.Date("2020-03-14"))
 
   top_of_range <- max(max(chart_data$value), 102)
-  bottom_of_range <- min(min(chart_data$value), 90)
+  bottom_of_range <- floor(min(chart_data$value))
 
   latest <- chart_data %>%
     filter(.data$date == max(.data$date))
 
   title <- case_when(
     all(latest$value < 100) ~
-    "Construction employment is down in all states",
+    paste0(focus_industry, " employment is down in all states"),
     sum(latest$value < 100) >= 3 ~
-    "Construction employment is down in most states",
+    paste0(focus_industry, " employment is down in most states"),
     sum(latest$value < 100) >= 1 ~
     paste0(
-      "Construction employment is down in ",
+      focus_industry, " employment is down in ",
       paste0(latest$state[latest$value < 100], collapse = " and ")
-    )
+    ),
+    TRUE ~
+      paste0(focus_industry, " employment is up in all states")
   )
 
   chart_data %>%
@@ -64,8 +67,8 @@ viz_payrolls_construction_bystate <- function(data = load_data(),
       date_labels = "%b"
     ) +
     scale_y_continuous(
-      breaks = seq(bottom_of_range, top_of_range, 2),
-      labels = function(x) paste0(x - 100, "%"),
+      n.breaks = 6,
+      labels = function(x) paste0(round(x - 100, 1), "%"),
       limits = c(bottom_of_range, top_of_range)
     ) +
     theme_grattan() +

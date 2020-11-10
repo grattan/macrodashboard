@@ -178,8 +178,35 @@ tab_emphours <- function(...) {
     graph_ui("emp_agesex_recessions",
       title = "Recessions compared by age"
     ),
-    graph_ui("payrolls_construction_bystate",
-      title = "Construction payroll jobs by state"
+    graph_ui("payrolls_byind_bystate",
+      title = "Payroll jobs by state, by industry",
+      input_fn1 = function(id) {
+        selectInput(NS(id, "arg1"),
+                    "Select industry to highlight",
+                    choices = c(
+                      "Agriculture, forestry & fishing",
+                      "Mining",
+                      "Manufacturing",
+                      "Electricity, gas, water & waste services",
+                      "Construction",
+                      "Wholesale trade",
+                      "Retail trade",
+                      "Accommodation & food services",
+                      "Transport, postal & warehousing",
+                      "Information media & telecommunications",
+                      "Financial & insurance services",
+                      "Rental, hiring & real estate services",
+                      "Professional, scientific & technical services",
+                      "Administrative & support services",
+                      "Public administration & safety",
+                      "Education & training",
+                      "Health care & social assistance",
+                      "Arts & recreation services",
+                      "Other services"
+                    ),
+                    selected = "Construction"
+        )
+      }
     ),
     graph_ui("payrolls_byind_bar",
       title = "Change in payroll jobs by industry",
