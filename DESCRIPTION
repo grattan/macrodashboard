@@ -40,7 +40,8 @@ Imports:
     forcats,
     stringr,
     gt,
-    zoo
+    zoo,
+    ggtext
 Remotes:
     grattan/grattantheme,
     mattcowgill/auseconhist

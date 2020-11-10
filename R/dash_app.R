@@ -77,6 +77,9 @@ dash_server <- function(input, output, session) {
       "unemp_age_dots",
       "hours_pop",
       "viz_emphours_sex_recessions",
+      "emp_agesex_recessions",
+      "payrolls_construction_bystate",
+      "payrolls_byind_bar",
       "corelogic_shutdown_panel",
       "corelogic_shutdown_lines",
       "gross_flows"
@@ -86,6 +89,9 @@ dash_server <- function(input, output, session) {
       viz_unemp_age_dots,
       viz_hours_pop,
       viz_emphours_sex_recessions,
+      viz_emp_agesex_recessions,
+      viz_payrolls_construction_bystate,
+      viz_payrolls_byind_bar,
       viz_corelogic_shutdown_panel,
       viz_corelogic_shutdown_lines,
       viz_lf_grossflows
