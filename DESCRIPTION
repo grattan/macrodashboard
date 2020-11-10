@@ -27,7 +27,6 @@ Imports:
     utils,
     shiny,
     purrr,
-    tibble,
     shinydashboard,
     fst,
     auseconhist,

@@ -6,7 +6,6 @@
 viz_unemp_age_dots <- function(data = load_data(),
                                month1 = as.Date("2020-03-01"),
                                arg2 = NULL) {
-
   month1 <- lubridate::dmy(paste("01",
     lubridate::month(month1),
     lubridate::year(month1),

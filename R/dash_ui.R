@@ -6,8 +6,10 @@ graph_ui <- function(id,
     style = "padding: 30px; background-color: rgba(217,217,217,0.5); border-style: solid; border-width: thin; border-color: #D9D9D9",
     # Inputs above plot
     fluidRow(
-      column(width = 12,
-             h3(strong(title))),
+      column(
+        width = 12,
+        h3(strong(title))
+      ),
       column(
         width = 4,
         input_fn1(id)
@@ -147,54 +149,68 @@ tab_emphours <- function(...) {
   tabItem(
     tabName = "emp_hours",
     graph_ui("hours_pop",
-             title = "Hours per head of population (civilians aged 15+)"),
+      title = "Hours per head of population (civilians aged 15+)"
+    ),
     graph_ui("viz_emphours_sex_recessions",
-             title = "Recessions compared by sex",
-             input_fn1 = function(id) {
-               selectInput(NS(id, "arg1"),
-                           "Select measure of interest",
-                           choices = c("Employment" = "employment",
-                                       "Total hours worked" = "hours",
-                                       "Hours per head of population" = "hours_pop"),
-                           selected = "employment")
-             },
-             input_fn2 = function(id) {
-               selectInput(NS(id, "arg2"),
-                           "Facet on recession or sex?",
-                           choices = c("Recession" = "recession",
-                                       "Sex" = "sex"),
-                           selected = "recession")
-             }),
+      title = "Recessions compared by sex",
+      input_fn1 = function(id) {
+        selectInput(NS(id, "arg1"),
+          "Select measure of interest",
+          choices = c(
+            "Employment" = "employment",
+            "Total hours worked" = "hours",
+            "Hours per head of population" = "hours_pop"
+          ),
+          selected = "employment"
+        )
+      },
+      input_fn2 = function(id) {
+        selectInput(NS(id, "arg2"),
+          "Facet on recession or sex?",
+          choices = c(
+            "Recession" = "recession",
+            "Sex" = "sex"
+          ),
+          selected = "recession"
+        )
+      }
+    ),
     graph_ui("emp_agesex_recessions",
-             title = "Recessions compared by age"),
+      title = "Recessions compared by age"
+    ),
     graph_ui("payrolls_construction_bystate",
-             title = "Construction payroll jobs by state"),
+      title = "Construction payroll jobs by state"
+    ),
     graph_ui("payrolls_byind_bar",
-             title = "Change in payroll jobs by industry",
-             input_fn1 = function(id) {
-               selectInput(NS(id, "arg1"),
-                           "Select industry to highlight",
-                           choices = c("Agriculture, forestry & fishing",
-                                        "Mining",
-                                        "Manufacturing",
-                                        "Electricity, gas, water & waste services",
-                                        "Construction",
-                                        "Wholesale trade",
-                                        "Retail trade",
-                                        "Accommodation & food services",
-                                        "Transport, postal & warehousing",
-                                        "Information media & telecommunications",
-                                        "Financial & insurance services",
-                                        "Rental, hiring & real estate services",
-                                        "Professional, scientific & technical services",
-                                        "Administrative & support services",
-                                        "Public administration & safety",
-                                        "Education & training",
-                                        "Health care & social assistance",
-                                        "Arts & recreation services",
-                                        "Other services"),
-                           selected = "Construction")
-             })
+      title = "Change in payroll jobs by industry",
+      input_fn1 = function(id) {
+        selectInput(NS(id, "arg1"),
+          "Select industry to highlight",
+          choices = c(
+            "Agriculture, forestry & fishing",
+            "Mining",
+            "Manufacturing",
+            "Electricity, gas, water & waste services",
+            "Construction",
+            "Wholesale trade",
+            "Retail trade",
+            "Accommodation & food services",
+            "Transport, postal & warehousing",
+            "Information media & telecommunications",
+            "Financial & insurance services",
+            "Rental, hiring & real estate services",
+            "Professional, scientific & technical services",
+            "Administrative & support services",
+            "Public administration & safety",
+            "Education & training",
+            "Health care & social assistance",
+            "Arts & recreation services",
+            "Other services"
+          ),
+          selected = "Construction"
+        )
+      }
+    )
   )
 }
 

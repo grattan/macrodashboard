@@ -8,7 +8,7 @@ load_data <- function() {
     cacheOK = TRUE
   )
   data <- readRDS(temp_file)
-  data <- purrr::map(data, tibble::as_tibble)
+  data <- purrr::map(data, dplyr::as_tibble)
   data <- purrr::map(data, ~ dplyr::mutate_if(.tbl = .x, .predicate = is.factor, .funs = as.character))
   data
 }
