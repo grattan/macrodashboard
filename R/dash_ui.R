@@ -86,6 +86,9 @@ sidebar <- function(...) {
         tabName = "emp_hours",
         icon = icon("chart-area")
       ),
+      menuItem("Minimum wages",
+               tabName = "oecd_minwage",
+               icon = icon("dollar")),
       menuItem("Labour force flows",
         tabName = "gross_flows",
         icon = icon("wind")
@@ -267,6 +270,26 @@ tab_housing <- function(...) {
   )
 }
 
+tab_min_wages <- function(...) {
+  tabItem(
+    tabName = "oecd_minwage",
+    graph_ui("oecd_minwage",
+             title = "Minimum wages in the OECD",
+             input_fn1 = function(id) {
+               selectInput(NS(id, "arg1"),
+                           label = "Show MW as a percentage of",
+                           choices = c("mean", "median"),
+                           selected = "mean")
+             },
+             input_fn2 = function(id) {
+               checkboxInput(NS(id, "arg2"),
+                            label = "Show other countries as shaded range",
+                            value = FALSE,
+                            )
+             })
+  )
+}
+
 tab_gross_flows <- function(...) {
   tabItem(
     tabName = "gross_flows",
@@ -290,8 +313,9 @@ body <- function(...) {
       tab_about(),
       tab_unemployment(),
       tab_emphours(),
-      tab_gross_flows(),
-      tab_housing()
+      tab_min_wages(),
+      tab_housing(),
+      tab_gross_flows()
     )
   )
 }

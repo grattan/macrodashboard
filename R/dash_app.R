@@ -82,7 +82,8 @@ dash_server <- function(input, output, session) {
       "payrolls_byind_bar",
       "corelogic_shutdown_panel",
       "corelogic_shutdown_lines",
-      "gross_flows"
+      "gross_flows",
+      "oecd_minwage"
     ),
     .y = c(
       viz_unemp_rate,
@@ -94,7 +95,8 @@ dash_server <- function(input, output, session) {
       viz_payrolls_byind_bar,
       viz_corelogic_shutdown_panel,
       viz_corelogic_shutdown_lines,
-      viz_lf_grossflows
+      viz_lf_grossflows,
+      viz_oecd_minwage
     ),
     .f = plot_server,
     data = dash_data
