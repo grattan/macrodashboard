@@ -32,8 +32,7 @@ plot_server <- function(id, plot_function, data) {
         },
         content = function(file) {
           if (input$filetype == "PNG") {
-            obj <- filtered_plot() +
-              theme_grattan(base_family = "Arial")
+            obj <- filtered_plot()
 
             grattantheme::grattan_save(
               filename = file,
