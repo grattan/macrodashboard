@@ -86,6 +86,9 @@ sidebar <- function(...) {
         tabName = "emp_hours",
         icon = icon("chart-area")
       ),
+      menuItem("Inflation + wages growth",
+               tabName = "inf_wages",
+               icon = icon("dollar")),
       menuItem("Minimum wages",
                tabName = "oecd_minwage",
                icon = icon("dollar")),
@@ -244,6 +247,13 @@ tab_emphours <- function(...) {
   )
 }
 
+tab_inf_wages <- function(...) {
+  tabItem(
+    tabName = "inf_wages",
+    graph_ui("forecasts_cpi_wpi")
+  )
+}
+
 tab_housing <- function(...) {
   tabItem(
     tabName = "housing",
@@ -313,6 +323,7 @@ body <- function(...) {
       tab_about(),
       tab_unemployment(),
       tab_emphours(),
+      tab_inf_wages(),
       tab_min_wages(),
       tab_housing(),
       tab_gross_flows()

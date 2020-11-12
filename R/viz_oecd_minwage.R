@@ -100,6 +100,7 @@ viz_oecd_minwage <- function(data = load_data(),
                            ifelse(.series == "mean", "average", "median"),
                            " wage in OECD countries"),
          caption = "Source: OECD.Stat") +
-    theme(axis.title = element_blank() ) +
+    theme(axis.title = element_blank(),
+          axis.title.x = element_blank() ) +
     scale_x_continuous(expand = expansion(mult = c(0, .12)))
 }
