@@ -17,7 +17,7 @@ RoxygenNote: 7.1.1
 Suggests: 
     testthat
 Imports: 
-    grattantheme (>= 0.8.3.2),
+    grattantheme (>= 0.8.3.2.900),
     patchwork,
     ggplot2,
     tidyr,
