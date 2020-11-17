@@ -5,7 +5,7 @@ load_data <- function() {
     url = "https://github.com/MattCowgill/macro_dashboard_data/blob/master/data/all_data.rds?raw=TRUE",
     destfile = temp_file,
     quiet = TRUE,
-    cacheOK = TRUE
+    cacheOK = FALSE
   )
   data <- readRDS(temp_file)
   data <- purrr::map(data, dplyr::as_tibble)
