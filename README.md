@@ -13,7 +13,7 @@ status](https://travis-ci.org/mattcowgill/macrodashboard.svg?branch=master)](htt
 <!-- badges: end -->
 
 This repo contains builds a Shiny dashboard of graphs relevant to
-Grattan Institute’s work on macroeconomic policy. It provides publication-ready charts in a range of formats.
+Grattan Institute’s work on macroeconomic policy. It provides publication-ready charts in a range of formats. The intended audience for this dashboard is Grattan staff, but it is not password-protected.
 
 This is an *unfinished work in progress*.
 
