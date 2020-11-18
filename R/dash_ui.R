@@ -86,6 +86,9 @@ sidebar <- function(...) {
         tabName = "emp_hours",
         icon = icon("chart-area")
       ),
+      menuItem("Payrolls",
+               tabName = "payrolls",
+               icon = icon("dollar")),
       menuItem("Inflation + wages growth",
                tabName = "inf_wages",
                icon = icon("dollar")),
@@ -183,67 +186,104 @@ tab_emphours <- function(...) {
     ),
     graph_ui("emp_agesex_recessions",
       title = "Recessions compared by age"
-    ),
-    graph_ui("payrolls_byind_bystate",
-      title = "Payroll jobs by state, by industry",
-      input_fn1 = function(id) {
-        selectInput(NS(id, "arg1"),
-                    "Select industry to highlight",
-                    choices = c(
-                      "Agriculture, forestry & fishing",
-                      "Mining",
-                      "Manufacturing",
-                      "Electricity, gas, water & waste services",
-                      "Construction",
-                      "Wholesale trade",
-                      "Retail trade",
-                      "Accommodation & food services",
-                      "Transport, postal & warehousing",
-                      "Information media & telecommunications",
-                      "Financial & insurance services",
-                      "Rental, hiring & real estate services",
-                      "Professional, scientific & technical services",
-                      "Administrative & support services",
-                      "Public administration & safety",
-                      "Education & training",
-                      "Health care & social assistance",
-                      "Arts & recreation services",
-                      "Other services"
-                    ),
-                    selected = "Construction"
-        )
-      }
-    ),
-    graph_ui("payrolls_byind_bar",
-      title = "Change in payroll jobs by industry",
-      input_fn1 = function(id) {
-        selectInput(NS(id, "arg1"),
-          "Select industry to highlight",
-          choices = c(
-            "Agriculture, forestry & fishing",
-            "Mining",
-            "Manufacturing",
-            "Electricity, gas, water & waste services",
-            "Construction",
-            "Wholesale trade",
-            "Retail trade",
-            "Accommodation & food services",
-            "Transport, postal & warehousing",
-            "Information media & telecommunications",
-            "Financial & insurance services",
-            "Rental, hiring & real estate services",
-            "Professional, scientific & technical services",
-            "Administrative & support services",
-            "Public administration & safety",
-            "Education & training",
-            "Health care & social assistance",
-            "Arts & recreation services",
-            "Other services"
-          ),
-          selected = "Construction"
-        )
-      }
     )
+    )
+}
+
+tab_payrolls <- function(...) {
+  tabItem(
+    tabName = "payrolls",
+    graph_ui("payrolls_bystate",
+             title = "Payroll jobs or total wages by state",
+             input_fn1 = function(id) {
+               checkboxGroupInput(NS(id, "arg1"),
+                                  label = "Choose states to show",
+                                  choices = c("Australia",
+                                              "ACT",
+                                              "NSW",
+                                              "NT",
+                                              "QLD",
+                                              "SA",
+                                              "TAS",
+                                              "VIC",
+                                              "WA"),
+                                  selected = c("NSW",
+                                               "VIC",
+                                               "QLD",
+                                               "TAS",
+                                               "SA",
+                                               "WA"),
+                                  inline = TRUE)
+             },
+             input_fn2 = function(id) {
+               selectInput(NS(id, "arg2"),
+                           label = "Show total jobs or total wages",
+                           choices = c("jobs", "wages"),
+                           selected = "jobs",
+                           multiple = FALSE)
+             }
+
+             ),
+    graph_ui("payrolls_byind_bystate",
+           title = "Payroll jobs by state, by industry",
+           input_fn1 = function(id) {
+             selectInput(NS(id, "arg1"),
+                         "Select industry to highlight",
+                         choices = c(
+                           "Agriculture, forestry & fishing",
+                           "Mining",
+                           "Manufacturing",
+                           "Electricity, gas, water & waste services",
+                           "Construction",
+                           "Wholesale trade",
+                           "Retail trade",
+                           "Accommodation & food services",
+                           "Transport, postal & warehousing",
+                           "Information media & telecommunications",
+                           "Financial & insurance services",
+                           "Rental, hiring & real estate services",
+                           "Professional, scientific & technical services",
+                           "Administrative & support services",
+                           "Public administration & safety",
+                           "Education & training",
+                           "Health care & social assistance",
+                           "Arts & recreation services",
+                           "Other services"
+                         ),
+                         selected = "Construction"
+             )
+           }
+  ),
+  graph_ui("payrolls_byind_bar",
+           title = "Change in payroll jobs by industry",
+           input_fn1 = function(id) {
+             selectInput(NS(id, "arg1"),
+                         "Select industry to highlight",
+                         choices = c(
+                           "Agriculture, forestry & fishing",
+                           "Mining",
+                           "Manufacturing",
+                           "Electricity, gas, water & waste services",
+                           "Construction",
+                           "Wholesale trade",
+                           "Retail trade",
+                           "Accommodation & food services",
+                           "Transport, postal & warehousing",
+                           "Information media & telecommunications",
+                           "Financial & insurance services",
+                           "Rental, hiring & real estate services",
+                           "Professional, scientific & technical services",
+                           "Administrative & support services",
+                           "Public administration & safety",
+                           "Education & training",
+                           "Health care & social assistance",
+                           "Arts & recreation services",
+                           "Other services"
+                         ),
+                         selected = "Construction")
+                         }
+             )
+
   )
 }
 
@@ -323,6 +363,7 @@ body <- function(...) {
       tab_about(),
       tab_unemployment(),
       tab_emphours(),
+      tab_payrolls(),
       tab_inf_wages(),
       tab_min_wages(),
       tab_housing(),
