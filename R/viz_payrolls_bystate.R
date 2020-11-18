@@ -76,7 +76,7 @@ viz_payrolls_bystate <- function(data = load_data(),
       nudge_x = 4
     ) +
     scale_colour_manual(values = cols) +
-    scale_x_date(expand = expansion(mult = c(0, 0.15)),
+    scale_x_date(expand = expansion(mult = c(0, 0.10)),
                  date_breaks = date_breaks,
                  date_labels = date_labels) +
     scale_y_continuous(labels = function(x) paste0(x - 100, "%") ,

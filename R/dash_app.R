@@ -84,7 +84,9 @@ dash_server <- function(input, output, session) {
       "corelogic_shutdown_lines",
       "gross_flows",
       "oecd_minwage",
-      "forecasts_cpi_wpi"
+      "forecasts_cpi_wpi",
+      "wpi_bysector",
+      "wpi_byind"
     ),
     .y = c(
       viz_unemp_rate,
@@ -99,7 +101,9 @@ dash_server <- function(input, output, session) {
       viz_corelogic_shutdown_lines,
       viz_lf_grossflows,
       viz_oecd_minwage,
-      viz_forecasts_cpi_wpi
+      viz_forecasts_cpi_wpi,
+      viz_wpi_bysector,
+      viz_wpi_byind
     ),
     .f = plot_server,
     data = dash_data

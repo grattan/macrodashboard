@@ -50,6 +50,13 @@ viz_forecasts_cpi_wpi <- function(data = load_data(),
                      max_cpi_forecast > 3 ~
                        "Inflation is forecast to be above the RBA's target band")
 
+  latest_text <- paste0(
+    "The latest CPI data is for ", format(max(cpi$date), "%b %Y"), "; ",
+    "the latest WPI data is for ", format(max(wpi$date), "%b %Y"), "; ",
+    "the latest RBA forecast was issued in ", format(max(raw_forecasts$forecast_date),
+                                                     "%b %Y"), "."
+  )
+
   # Graph
   forecast_band <- summarise(forecasts,
                              min_date = min(.data$date),
@@ -85,7 +92,10 @@ viz_forecasts_cpi_wpi <- function(data = load_data(),
     theme_grattan() +
     theme(axis.title = element_blank() ) +
     labs(title = title,
-         subtitle = "Actual and forecast CPI inflation and wages growth",
-         caption = paste0("Notes: Inflation refers to the trimmed mean. Wages growth is the Wage Price Index. Both series are seasonally adjusted. Source: ABS Consumer Price Index; ABS Wage Price Index; RBA Statement on Monetary Policy ", lubridate::month(smp_date, label = TRUE, abbr = FALSE), " ", lubridate::year(smp_date)))
+         subtitle = "Inflation and wages growth - actual and the RBA's forecasts (per cent per year)",
+         caption = paste0("Notes: Inflation refers to the trimmed mean. Wages growth is the Wage Price Index. Both series are seasonally adjusted.",
+                          latest_text,
+                          "Source: ABS Consumer Price Index; ABS Wage Price Index; RBA Statement on Monetary Policy ",
+                          lubridate::month(smp_date, label = TRUE, abbr = FALSE), " ", lubridate::year(smp_date)))
 
 }

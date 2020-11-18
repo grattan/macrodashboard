@@ -290,7 +290,81 @@ tab_payrolls <- function(...) {
 tab_inf_wages <- function(...) {
   tabItem(
     tabName = "inf_wages",
-    graph_ui("forecasts_cpi_wpi")
+    graph_ui("forecasts_cpi_wpi"),
+    graph_ui("wpi_bysector",
+             input_fn1 = function(id) {
+              sliderInput(NS(id, "arg1"),
+                          "Select date range to show",
+                          min = as.Date("1997-09-01"),
+                          max = Sys.Date(),
+                          value = c(as.Date("1997-09-01"),
+                                    Sys.Date()))
+
+             },
+             input_fn2 = function(id) {
+               checkboxGroupInput(NS(id, "arg2"),
+                                  "Choose sector to show",
+                                  choices = c("Public",
+                                              "Private",
+                                              "Total"),
+                                  selected = c("Public",
+                                               "Private",
+                                               "Total"))
+
+             }
+             ),
+    graph_ui("wpi_byind",
+             input_fn1 = function(id) {
+               sliderInput(NS(id, "arg1"),
+                           "Minimum date for average wage calculation",
+                           min = as.Date("1997-09-01"),
+                           max = Sys.Date(),
+                           value = as.Date("1997-09-01"))
+
+             },
+             input_fn2 = function(id) {
+               checkboxGroupInput(NS(id, "arg2"),
+                                  "Choose sector to show",
+                                  inline = TRUE,
+                                  choices = c("Mining",
+                                              "Manufacturing",
+                                              "Electricity, gas, water and waste services",
+                                              "Construction",
+                                              "Wholesale trade",
+                                              "Retail trade",
+                                              "Accommodation and food services",
+                                              "Transport, postal and warehousing",
+                                              "Information media and telecommunications",
+                                              "Financial and insurance services",
+                                              "Rental, hiring and real estate services",
+                                              "Professional, scientific and technical services",
+                                              "Administrative and support services",
+                                              "Public administration and safety",
+                                              "Education and training",
+                                              "Health care and social assistance",
+                                              "Arts and recreation services",
+                                              "Other services",
+                                              "All industries"),
+                                  selected = c("Mining",
+                                               "Manufacturing",
+                                               "Electricity, gas, water and waste services",
+                                               "Construction",
+                                               "Wholesale trade",
+                                               "Retail trade",
+                                               "Accommodation and food services",
+                                               "Transport, postal and warehousing",
+                                               "Information media and telecommunications",
+                                               "Financial and insurance services",
+                                               "Rental, hiring and real estate services",
+                                               "Professional, scientific and technical services",
+                                               "Administrative and support services",
+                                               "Public administration and safety",
+                                               "Education and training",
+                                               "Health care and social assistance",
+                                               "Arts and recreation services",
+                                               "Other services",
+                                               "All industries"))
+             })
   )
 }
 
