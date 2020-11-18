@@ -290,8 +290,10 @@ tab_payrolls <- function(...) {
 tab_inf_wages <- function(...) {
   tabItem(
     tabName = "inf_wages",
-    graph_ui("forecasts_cpi_wpi"),
+    graph_ui(title = "Inflation and wages forecasts",
+             "forecasts_cpi_wpi"),
     graph_ui("wpi_bysector",
+             title = "WPI growth by sector",
              input_fn1 = function(id) {
               sliderInput(NS(id, "arg1"),
                           "Select date range to show",
@@ -314,6 +316,7 @@ tab_inf_wages <- function(...) {
              }
              ),
     graph_ui("wpi_byind",
+             title = "WPI growth by industry",
              input_fn1 = function(id) {
                sliderInput(NS(id, "arg1"),
                            "Minimum date for average wage calculation",
