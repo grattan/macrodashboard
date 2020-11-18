@@ -94,7 +94,7 @@ viz_wpi_byind <- function(data = load_data(),
                                           paste0("Year to ", format(max_date, "%b %Y")),
                                           paste0("Ave. since ", format(user_min_date, "%b %Y")))),
                   aes(label = stringr::str_wrap(label, 10)),
-                  direction = "y",
+                  direction = "x",
                   segment.size = 0,
                   size = 16,
                   nudge_x = 1.5) +
