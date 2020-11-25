@@ -10,8 +10,8 @@ viz_apple_mobility <- function(data = load_data(),
   cities <- arg1
 
   df <- df %>%
-    filter(geo_type == "city",
-           region %in% cities) %>%
+    filter(.data$geo_type == "city",
+           .data$region %in% cities) %>%
     pivot_longer(
       cols = dplyr::starts_with("202"),
       names_to = "date"
@@ -19,53 +19,54 @@ viz_apple_mobility <- function(data = load_data(),
     mutate(date = as.Date(date))
 
   df <- df %>%
-    group_by(region, transportation_type) %>%
+    group_by(.data$region, .data$transportation_type) %>%
     arrange(date) %>%
-    mutate(weekly_ave = zoo::rollmeanr(value, k = 7, fill = NA)) %>%
+    mutate(weekly_ave = zoo::rollmeanr(.data$value, k = 7, fill = NA)) %>%
     ungroup() %>%
-    filter(!is.na(weekly_ave))
+    filter(!is.na(.data$weekly_ave))
 
   df <- df %>%
-    mutate(transportation_type = tools::toTitleCase(transportation_type),
-           transportation_type = if_else(transportation_type == "Transit",
+    mutate(transportation_type = tools::toTitleCase(.data$transportation_type),
+           transportation_type = if_else(.data$transportation_type == "Transit",
                                          "Public transport",
-                                         transportation_type))
+                                         .data$transportation_type))
 
   df <- df %>%
     filter(date >= lubridate::dmy("01-02-2020")) %>%
-    group_by(region) %>%
-    mutate(cf_feb = (100 * (weekly_ave / mean(weekly_ave[lubridate::month(date) == 2]))) - 100)
+    group_by(.data$region) %>%
+    mutate(cf_feb = (100 * (.data$weekly_ave / mean(.data$weekly_ave[lubridate::month(date) == 2]))) - 100)
 
   max_y <- max(25, max(df$cf_feb))
 
   # Graph -----
   df %>%
-    ggplot(aes(x = date, y = cf_feb, col = region)) +
+    ggplot(aes(x = .data$date, y = .data$cf_feb, col = .data$region)) +
     geom_hline(yintercept = 0) +
     geom_line() +
     geom_point(data = ~filter(., date == max(date))) +
     grattan_label_repel(data = ~filter(., date == max(date)),
-                        aes(label = paste0(if_else(cf_feb > 0, "+", ""),
-                                           round(cf_feb, 0))),
+                        aes(label = paste0(if_else(.data$cf_feb > 0, "+", ""),
+                                           round(.data$cf_feb, 0))),
                         hjust = 0,
                         size = 14,
                         direction = "y",
                         segment.size = 0,
                         nudge_x = 12) +
-    grattan_label(data = ~filter(., transportation_type == "Public transport") %>%
-                    group_by(transportation_type, region) %>%
-                    summarise(latest = cf_feb[date == max(date)]) %>%
+    grattan_label(data = ~filter(., .data$transportation_type == "Public transport") %>%
+                    group_by(.data$transportation_type, .data$region) %>%
+                    summarise(latest = .data$cf_feb[date == max(date)]) %>%
                     ungroup() %>%
                     arrange(-latest) %>%
                     mutate(x = as.Date("2020-04-01"),
-                           y = (max_y + 6) - (row_number() * 6)),
+                           y = (max_y + 6.5) - (row_number() * 6.5)),
                   inherit.aes = F,
-                  aes(x = x, y = y, label = region, col = region),
+                  aes(x = .data$x, y = .data$y,
+                      label = .data$region, col = .data$region),
                   vjust = 1,
                   hjust = 0,
                   size = 16) +
-    grattan_colour_manual(n = length(cities), rev = T) +
-    facet_wrap(~transportation_type) +
+    grattan_colour_manual(n = length(cities), reverse = T) +
+    facet_wrap(~.data$transportation_type) +
     theme_grattan() +
     grattan_y_continuous(limits = c(-100, max_y),
                          breaks = seq(-75, max_y, 25),

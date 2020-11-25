@@ -38,7 +38,7 @@ download_graph_ui <- function(id) {
         "Select plot type to download",
         choices = c(
           "normal", "wholecolumn", "fullpage",
-          "fullslide", "fullslide_169",
+          "fullslide", "fullslide_169", "fullslide_old169",
           "blog", "blog_half"
         ),
         selected = "blog",
