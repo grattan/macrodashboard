@@ -285,7 +285,9 @@ tab_payrolls <- function(...) {
                          ),
                          selected = "Construction")
                          }
-             )
+             ),
+  graph_ui("payroll_bysex",
+           title = "Payroll jobs by sex")
 
   )
 }
