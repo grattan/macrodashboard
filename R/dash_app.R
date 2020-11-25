@@ -86,7 +86,8 @@ dash_server <- function(input, output, session) {
       "oecd_minwage",
       "forecasts_cpi_wpi",
       "wpi_bysector",
-      "wpi_byind"
+      "wpi_byind",
+      "apple_mobility"
     ),
     .y = c(
       viz_unemp_rate,
@@ -103,7 +104,8 @@ dash_server <- function(input, output, session) {
       viz_oecd_minwage,
       viz_forecasts_cpi_wpi,
       viz_wpi_bysector,
-      viz_wpi_byind
+      viz_wpi_byind,
+      viz_apple_mobility
     ),
     .f = plot_server,
     data = dash_data

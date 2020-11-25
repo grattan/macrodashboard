@@ -92,6 +92,9 @@ sidebar <- function(...) {
       menuItem("Inflation + wages growth",
                tabName = "inf_wages",
                icon = icon("dollar")),
+      menuItem("Mobility",
+               tabName = "mobility",
+               icon = icon("car")),
       menuItem("Minimum wages",
                tabName = "oecd_minwage",
                icon = icon("dollar")),
@@ -397,6 +400,26 @@ tab_housing <- function(...) {
   )
 }
 
+tab_mobility <- function(...) {
+  tabItem(
+    tabName = "mobility",
+    graph_ui("apple_mobility",
+             title = "Mobility in Australian cities",
+             input_fn1 = function(id) {
+               checkboxGroupInput(NS(id, "arg1"),
+                           label = "Cities to show",
+                           choices = c("Perth",
+                                       "Adelaide",
+                                       "Brisbane",
+                                       "Sydney",
+                                       "Melbourne"),
+                           selected = c("Perth",
+                                        "Sydney",
+                                        "Melbourne"))
+             })
+  )
+}
+
 tab_min_wages <- function(...) {
   tabItem(
     tabName = "oecd_minwage",
@@ -442,6 +465,7 @@ body <- function(...) {
       tab_emphours(),
       tab_payrolls(),
       tab_inf_wages(),
+      tab_mobility(),
       tab_min_wages(),
       tab_housing(),
       tab_gross_flows()
