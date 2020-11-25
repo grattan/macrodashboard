@@ -287,7 +287,9 @@ tab_payrolls <- function(...) {
                          }
              ),
   graph_ui("payroll_bysex",
-           title = "Payroll jobs by sex")
+           title = "Payroll jobs by sex"),
+  graph_ui("payroll_byage",
+           title = "Payroll jobs by age")
 
   )
 }
