@@ -1,7 +1,7 @@
 #' @importFrom stats reorder
 viz_payrolls_byind_bystate <- function(data = load_data(),
-                                              arg1 = "Construction",
-                                              arg2 = NULL) {
+                                       arg1 = "Construction",
+                                       arg2 = NULL) {
   df <- data$payrolls_industry_jobs
   focus_industry <- arg1
 
@@ -34,7 +34,7 @@ viz_payrolls_byind_bystate <- function(data = load_data(),
       paste0(latest$state[latest$value < 100], collapse = " and ")
     ),
     TRUE ~
-      paste0(focus_industry, " employment is up in all states")
+    paste0(focus_industry, " employment is up in all states")
   )
 
   chart_data %>%

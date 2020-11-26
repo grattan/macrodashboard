@@ -87,23 +87,29 @@ sidebar <- function(...) {
         icon = icon("chart-area")
       ),
       menuItem("Payroll jobs",
-               tabName = "payrolls",
-               icon = icon("dollar")),
+        tabName = "payrolls",
+        icon = icon("dollar")
+      ),
       menuItem("Jobs maps",
-               tabName = "jobs_maps",
-               icon = icon("globe")),
+        tabName = "jobs_maps",
+        icon = icon("globe")
+      ),
       menuItem("Inflation + wages growth",
-               tabName = "inf_wages",
-               icon = icon("dollar")),
+        tabName = "inf_wages",
+        icon = icon("dollar")
+      ),
       menuItem("Interest rates",
-               tabName = "interest",
-               icon = icon("dollar")),
+        tabName = "interest",
+        icon = icon("dollar")
+      ),
       menuItem("Mobility",
-               tabName = "mobility",
-               icon = icon("car")),
+        tabName = "mobility",
+        icon = icon("car")
+      ),
       menuItem("Minimum wages",
-               tabName = "oecd_minwage",
-               icon = icon("dollar")),
+        tabName = "oecd_minwage",
+        icon = icon("dollar")
+      ),
       menuItem("Labour force flows",
         tabName = "gross_flows",
         icon = icon("wind")
@@ -196,220 +202,258 @@ tab_emphours <- function(...) {
     graph_ui("emp_agesex_recessions",
       title = "Recessions compared by age"
     )
-    )
+  )
 }
 
 tab_payrolls <- function(...) {
   tabItem(
     tabName = "payrolls",
     graph_ui("payrolls_bystate",
-             title = "Payroll jobs or total wages by state",
-             input_fn1 = function(id) {
-               checkboxGroupInput(NS(id, "arg1"),
-                                  label = "Choose states to show",
-                                  choices = c("Australia",
-                                              "ACT",
-                                              "NSW",
-                                              "NT",
-                                              "QLD",
-                                              "SA",
-                                              "TAS",
-                                              "VIC",
-                                              "WA"),
-                                  selected = c("NSW",
-                                               "VIC",
-                                               "QLD",
-                                               "TAS",
-                                               "SA",
-                                               "WA"),
-                                  inline = TRUE)
-             },
-             input_fn2 = function(id) {
-               selectInput(NS(id, "arg2"),
-                           label = "Show total jobs or total wages",
-                           choices = c("jobs", "wages"),
-                           selected = "jobs",
-                           multiple = FALSE)
-             }
-
-             ),
+      title = "Payroll jobs or total wages by state",
+      input_fn1 = function(id) {
+        checkboxGroupInput(NS(id, "arg1"),
+          label = "Choose states to show",
+          choices = c(
+            "Australia",
+            "ACT",
+            "NSW",
+            "NT",
+            "QLD",
+            "SA",
+            "TAS",
+            "VIC",
+            "WA"
+          ),
+          selected = c(
+            "NSW",
+            "VIC",
+            "QLD",
+            "TAS",
+            "SA",
+            "WA"
+          ),
+          inline = TRUE
+        )
+      },
+      input_fn2 = function(id) {
+        selectInput(NS(id, "arg2"),
+          label = "Show total jobs or total wages",
+          choices = c("jobs", "wages"),
+          selected = "jobs",
+          multiple = FALSE
+        )
+      }
+    ),
     graph_ui("payrolls_byind_bystate",
-           title = "Payroll jobs by state, by industry",
-           input_fn1 = function(id) {
-             selectInput(NS(id, "arg1"),
-                         "Select industry to highlight",
-                         choices = c(
-                           "Agriculture, forestry & fishing",
-                           "Mining",
-                           "Manufacturing",
-                           "Electricity, gas, water & waste services",
-                           "Construction",
-                           "Wholesale trade",
-                           "Retail trade",
-                           "Accommodation & food services",
-                           "Transport, postal & warehousing",
-                           "Information media & telecommunications",
-                           "Financial & insurance services",
-                           "Rental, hiring & real estate services",
-                           "Professional, scientific & technical services",
-                           "Administrative & support services",
-                           "Public administration & safety",
-                           "Education & training",
-                           "Health care & social assistance",
-                           "Arts & recreation services",
-                           "Other services"
-                         ),
-                         selected = "Construction"
-             )
-           }
-  ),
-  graph_ui("payrolls_byind_bar",
-           title = "Change in payroll jobs by industry",
-           input_fn1 = function(id) {
-             selectInput(NS(id, "arg1"),
-                         "Select industry to highlight",
-                         choices = c(
-                           "Agriculture, forestry & fishing",
-                           "Mining",
-                           "Manufacturing",
-                           "Electricity, gas, water & waste services",
-                           "Construction",
-                           "Wholesale trade",
-                           "Retail trade",
-                           "Accommodation & food services",
-                           "Transport, postal & warehousing",
-                           "Information media & telecommunications",
-                           "Financial & insurance services",
-                           "Rental, hiring & real estate services",
-                           "Professional, scientific & technical services",
-                           "Administrative & support services",
-                           "Public administration & safety",
-                           "Education & training",
-                           "Health care & social assistance",
-                           "Arts & recreation services",
-                           "Other services"
-                         ),
-                         selected = "Construction")
-                         }
-             ),
-  graph_ui("payroll_bysex",
-           title = "Payroll jobs by sex"),
-  graph_ui("payroll_byage",
-           title = "Payroll jobs by age")
-
+      title = "Payroll jobs by state, by industry",
+      input_fn1 = function(id) {
+        selectInput(NS(id, "arg1"),
+          "Select industry to highlight",
+          choices = c(
+            "Agriculture, forestry & fishing",
+            "Mining",
+            "Manufacturing",
+            "Electricity, gas, water & waste services",
+            "Construction",
+            "Wholesale trade",
+            "Retail trade",
+            "Accommodation & food services",
+            "Transport, postal & warehousing",
+            "Information media & telecommunications",
+            "Financial & insurance services",
+            "Rental, hiring & real estate services",
+            "Professional, scientific & technical services",
+            "Administrative & support services",
+            "Public administration & safety",
+            "Education & training",
+            "Health care & social assistance",
+            "Arts & recreation services",
+            "Other services"
+          ),
+          selected = "Construction"
+        )
+      }
+    ),
+    graph_ui("payrolls_byind_bar",
+      title = "Change in payroll jobs by industry",
+      input_fn1 = function(id) {
+        selectInput(NS(id, "arg1"),
+          "Select industry to highlight",
+          choices = c(
+            "Agriculture, forestry & fishing",
+            "Mining",
+            "Manufacturing",
+            "Electricity, gas, water & waste services",
+            "Construction",
+            "Wholesale trade",
+            "Retail trade",
+            "Accommodation & food services",
+            "Transport, postal & warehousing",
+            "Information media & telecommunications",
+            "Financial & insurance services",
+            "Rental, hiring & real estate services",
+            "Professional, scientific & technical services",
+            "Administrative & support services",
+            "Public administration & safety",
+            "Education & training",
+            "Health care & social assistance",
+            "Arts & recreation services",
+            "Other services"
+          ),
+          selected = "Construction"
+        )
+      }
+    ),
+    graph_ui("payroll_bysex",
+      title = "Payroll jobs by sex"
+    ),
+    graph_ui("payroll_byage",
+      title = "Payroll jobs by age"
+    )
   )
 }
 
 tab_jobs_maps <- function(...) {
   tabItem(
     tabName = "jobs_maps",
-    graph_ui(title = "Payroll jobs by SA3",
-             "payrolls_map",
-             input_fn1 = function(id) {
-               selectInput(NS(id, "arg1"),
-                           "City to show",
-                           choices = c("Perth",
-                                       "Adelaide",
-                                       "Hobart",
-                                       "Darwin",
-                                       "Canberra",
-                                       "Brisbane",
-                                       "Sydney",
-                                       "Melbourne"))
-
-             })
+    graph_ui(
+      title = "Payroll jobs by SA3",
+      "payrolls_map",
+      input_fn1 = function(id) {
+        selectInput(NS(id, "arg1"),
+          "City to show",
+          choices = c(
+            "Perth",
+            "Adelaide",
+            "Hobart",
+            "Darwin",
+            "Canberra",
+            "Brisbane",
+            "Sydney",
+            "Melbourne"
+          )
+        )
+      }
+    )
   )
 }
 
 tab_inf_wages <- function(...) {
   tabItem(
     tabName = "inf_wages",
-    graph_ui(title = "Inflation and wages forecasts",
-             "forecasts_cpi_wpi"),
+    graph_ui(
+      title = "Inflation and wages forecasts",
+      "forecasts_cpi_wpi"
+    ),
     graph_ui("wpi_bysector",
-             title = "WPI growth by sector",
-             input_fn1 = function(id) {
-              sliderInput(NS(id, "arg1"),
-                          "Select date range to show",
-                          min = as.Date("1997-09-01"),
-                          max = Sys.Date(),
-                          value = c(as.Date("1997-09-01"),
-                                    Sys.Date()))
-
-             },
-             input_fn2 = function(id) {
-               checkboxGroupInput(NS(id, "arg2"),
-                                  "Choose sector to show",
-                                  choices = c("Public",
-                                              "Private",
-                                              "Total"),
-                                  selected = c("Public",
-                                               "Private",
-                                               "Total"))
-
-             }
-             ),
+      title = "WPI growth by sector",
+      input_fn1 = function(id) {
+        sliderInput(NS(id, "arg1"),
+          "Select date range to show",
+          min = as.Date("1997-09-01"),
+          max = Sys.Date(),
+          value = c(
+            as.Date("1997-09-01"),
+            Sys.Date()
+          )
+        )
+      },
+      input_fn2 = function(id) {
+        checkboxGroupInput(NS(id, "arg2"),
+          "Choose sector to show",
+          choices = c(
+            "Public",
+            "Private",
+            "Total"
+          ),
+          selected = c(
+            "Public",
+            "Private",
+            "Total"
+          )
+        )
+      }
+    ),
     graph_ui("wpi_byind",
-             title = "WPI growth by industry",
-             input_fn1 = function(id) {
-               sliderInput(NS(id, "arg1"),
-                           "Minimum date for average wage calculation",
-                           min = as.Date("1997-09-01"),
-                           max = Sys.Date(),
-                           value = as.Date("1997-09-01"))
-
-             },
-             input_fn2 = function(id) {
-               checkboxGroupInput(NS(id, "arg2"),
-                                  "Choose sector to show",
-                                  inline = TRUE,
-                                  choices = c("Mining",
-                                              "Manufacturing",
-                                              "Electricity, gas, water and waste services",
-                                              "Construction",
-                                              "Wholesale trade",
-                                              "Retail trade",
-                                              "Accommodation and food services",
-                                              "Transport, postal and warehousing",
-                                              "Information media and telecommunications",
-                                              "Financial and insurance services",
-                                              "Rental, hiring and real estate services",
-                                              "Professional, scientific and technical services",
-                                              "Administrative and support services",
-                                              "Public administration and safety",
-                                              "Education and training",
-                                              "Health care and social assistance",
-                                              "Arts and recreation services",
-                                              "Other services",
-                                              "All industries"),
-                                  selected = c("Mining",
-                                               "Manufacturing",
-                                               "Electricity, gas, water and waste services",
-                                               "Construction",
-                                               "Wholesale trade",
-                                               "Retail trade",
-                                               "Accommodation and food services",
-                                               "Transport, postal and warehousing",
-                                               "Information media and telecommunications",
-                                               "Financial and insurance services",
-                                               "Rental, hiring and real estate services",
-                                               "Professional, scientific and technical services",
-                                               "Administrative and support services",
-                                               "Public administration and safety",
-                                               "Education and training",
-                                               "Health care and social assistance",
-                                               "Arts and recreation services",
-                                               "Other services",
-                                               "All industries"))
-             })
+      title = "WPI growth by industry",
+      input_fn1 = function(id) {
+        sliderInput(NS(id, "arg1"),
+          "Minimum date for average wage calculation",
+          min = as.Date("1997-09-01"),
+          max = Sys.Date(),
+          value = as.Date("1997-09-01")
+        )
+      },
+      input_fn2 = function(id) {
+        checkboxGroupInput(NS(id, "arg2"),
+          "Choose sector to show",
+          inline = TRUE,
+          choices = c(
+            "Mining",
+            "Manufacturing",
+            "Electricity, gas, water and waste services",
+            "Construction",
+            "Wholesale trade",
+            "Retail trade",
+            "Accommodation and food services",
+            "Transport, postal and warehousing",
+            "Information media and telecommunications",
+            "Financial and insurance services",
+            "Rental, hiring and real estate services",
+            "Professional, scientific and technical services",
+            "Administrative and support services",
+            "Public administration and safety",
+            "Education and training",
+            "Health care and social assistance",
+            "Arts and recreation services",
+            "Other services",
+            "All industries"
+          ),
+          selected = c(
+            "Mining",
+            "Manufacturing",
+            "Electricity, gas, water and waste services",
+            "Construction",
+            "Wholesale trade",
+            "Retail trade",
+            "Accommodation and food services",
+            "Transport, postal and warehousing",
+            "Information media and telecommunications",
+            "Financial and insurance services",
+            "Rental, hiring and real estate services",
+            "Professional, scientific and technical services",
+            "Administrative and support services",
+            "Public administration and safety",
+            "Education and training",
+            "Health care and social assistance",
+            "Arts and recreation services",
+            "Other services",
+            "All industries"
+          )
+        )
+      }
+    )
   )
 }
 
 tab_interest <- function(...) {
   tabItem(
     tabName = "interest",
-    graph_ui(title = "Yield curve on Australian Government bonds",
-             "rba_yieldcurve")
+    graph_ui(
+      title = "Yield curve on Australian Government bonds",
+      "rba_yieldcurve"
+    ),
+    graph_ui(
+      title = "Interest rate on Australian Government bonds over time",
+      "rba_bondrate",
+      input_fn1 = function(id) {
+        sliderInput(NS(id, "arg1"),
+                    min = as.Date("1900-01-01"),
+                    max = Sys.Date(),
+                    value = c(as.Date("1900-01-01"), Sys.Date()),
+                    label = "Choose dates to show")
+      }
+    )
   )
 }
 
@@ -443,19 +487,25 @@ tab_mobility <- function(...) {
   tabItem(
     tabName = "mobility",
     graph_ui("apple_mobility",
-             title = "Mobility in Australian cities",
-             input_fn1 = function(id) {
-               checkboxGroupInput(NS(id, "arg1"),
-                           label = "Cities to show",
-                           choices = c("Perth",
-                                       "Adelaide",
-                                       "Brisbane",
-                                       "Sydney",
-                                       "Melbourne"),
-                           selected = c("Perth",
-                                        "Sydney",
-                                        "Melbourne"))
-             })
+      title = "Mobility in Australian cities",
+      input_fn1 = function(id) {
+        checkboxGroupInput(NS(id, "arg1"),
+          label = "Cities to show",
+          choices = c(
+            "Perth",
+            "Adelaide",
+            "Brisbane",
+            "Sydney",
+            "Melbourne"
+          ),
+          selected = c(
+            "Perth",
+            "Sydney",
+            "Melbourne"
+          )
+        )
+      }
+    )
   )
 }
 
@@ -463,19 +513,21 @@ tab_min_wages <- function(...) {
   tabItem(
     tabName = "oecd_minwage",
     graph_ui("oecd_minwage",
-             title = "Minimum wages in the OECD",
-             input_fn1 = function(id) {
-               selectInput(NS(id, "arg1"),
-                           label = "Show MW as a percentage of",
-                           choices = c("mean", "median"),
-                           selected = "mean")
-             },
-             input_fn2 = function(id) {
-               checkboxInput(NS(id, "arg2"),
-                            label = "Show other countries as shaded range",
-                            value = FALSE,
-                            )
-             })
+      title = "Minimum wages in the OECD",
+      input_fn1 = function(id) {
+        selectInput(NS(id, "arg1"),
+          label = "Show MW as a percentage of",
+          choices = c("mean", "median"),
+          selected = "mean"
+        )
+      },
+      input_fn2 = function(id) {
+        checkboxInput(NS(id, "arg2"),
+          label = "Show other countries as shaded range",
+          value = FALSE,
+        )
+      }
+    )
   )
 }
 
