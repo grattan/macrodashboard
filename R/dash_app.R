@@ -88,6 +88,7 @@ dash_server <- function(input, output, session) {
       "gross_flows",
       "oecd_minwage",
       "forecasts_cpi_wpi",
+      "rba_yieldcurve",
       "wpi_bysector",
       "wpi_byind",
       "apple_mobility"
@@ -109,6 +110,7 @@ dash_server <- function(input, output, session) {
       viz_lf_grossflows,
       viz_oecd_minwage,
       viz_forecasts_cpi_wpi,
+      viz_rba_yieldcurve,
       viz_wpi_bysector,
       viz_wpi_byind,
       viz_apple_mobility

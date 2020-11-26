@@ -60,7 +60,7 @@ viz_payrolls_map <- function(data = load_data(),
               size = 11 / .pt) +
     grattan_fill_manual(discrete = F, palette = "full_f",
                         labels = function(x) paste0(x, "%")) +
-    theme_grattan(base_size = 16) +
+    theme_grattan(base_size = 14) +
     theme(panel.grid = element_blank(),
           axis.line = element_blank(),
           axis.text = element_blank(),

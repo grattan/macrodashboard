@@ -95,6 +95,9 @@ sidebar <- function(...) {
       menuItem("Inflation + wages growth",
                tabName = "inf_wages",
                icon = icon("dollar")),
+      menuItem("Interest rates",
+               tabName = "interest",
+               icon = icon("dollar")),
       menuItem("Mobility",
                tabName = "mobility",
                icon = icon("car")),
@@ -402,6 +405,14 @@ tab_inf_wages <- function(...) {
   )
 }
 
+tab_interest <- function(...) {
+  tabItem(
+    tabName = "interest",
+    graph_ui(title = "Yield curve on Australian Government bonds",
+             "rba_yieldcurve")
+  )
+}
+
 tab_housing <- function(...) {
   tabItem(
     tabName = "housing",
@@ -494,6 +505,7 @@ body <- function(...) {
       tab_payrolls(),
       tab_jobs_maps(),
       tab_inf_wages(),
+      tab_interest(),
       tab_mobility(),
       tab_min_wages(),
       tab_housing(),
