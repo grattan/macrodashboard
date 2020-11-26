@@ -54,17 +54,13 @@ viz_payrolls_map <- function(data = load_data(),
           fill = value),
       colour = "white",
       size = 0.1) +
-    grattan_label_repel(
-      aes(x = .data$cent_long,
-          y = .data$cent_lat,
-          label = round(.data$value, 1)),
-      size = 12,
-      colour = "black",
-      fill = NA
-    ) +
+    geom_text(aes(x = .data$cent_long,
+                  y = .data$cent_lat,
+                  label = round(.data$value, 1)),
+              size = 11 / .pt) +
     grattan_fill_manual(discrete = F, palette = "full_f",
                         labels = function(x) paste0(x, "%")) +
-    theme_grattan() +
+    theme_grattan(base_size = 16) +
     theme(panel.grid = element_blank(),
           axis.line = element_blank(),
           axis.text = element_blank(),
