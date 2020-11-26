@@ -53,8 +53,8 @@ viz_rba_yieldcurve <- function(data = load_data(),
     grattan_label_repel(
       data = ~ group_by(., .data$date_type) %>%
         filter(.data$years_to_maturity == max(.data$years_to_maturity)),
-      # aes(label = stringr::str_wrap(.data$date_type, 7)),
-      aes(label = format(date, "%d %b\n%Y")),
+      aes(label = stringr::str_wrap(.data$date_type, 7)),
+      # aes(label = format(date, "%d %b\n%Y")),
       direction = "y",
       segment.size = 0,
       hjust = 0.5,
