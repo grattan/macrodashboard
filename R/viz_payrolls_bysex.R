@@ -5,11 +5,11 @@ viz_payroll_bysex <- function(data = load_data(),
   df <- data$payrolls_industry_jobs
 
   df <- df %>%
-    filter(age == "All ages",
-           sex != "Persons",
-           industry == "All industries",
-           state == "Australia",
-           date >= as.Date("2020-03-14"))
+    filter(.data$age == "All ages",
+           .data$sex != "Persons",
+           .data$industry == "All industries",
+           .data$state == "Australia",
+           .data$date >= as.Date("2020-03-14"))
 
   df <- df %>%
     mutate(sex = case_when(.data$sex == "Females" ~ "Women",
@@ -17,7 +17,7 @@ viz_payroll_bysex <- function(data = load_data(),
                            TRUE ~ NA_character_))
 
   df <- df %>%
-    mutate(value = value - 100)
+    mutate(value = .data$value - 100)
 
   df %>%
     ggplot(aes(x = .data$date, y = .data$value, col = .data$sex)) +

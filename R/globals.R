@@ -7,5 +7,6 @@ utils::globalVariables(c(
   "dash_data", "input", "series_id",
   "unemp_rate", "series", "perc", "x",
   "series_type", "age", "series_desc",
-  "date_type", "min_date", "max_date"
+  "date_type", "min_date", "max_date",
+  "geometry"
 ))

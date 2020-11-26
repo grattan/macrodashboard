@@ -86,9 +86,12 @@ sidebar <- function(...) {
         tabName = "emp_hours",
         icon = icon("chart-area")
       ),
-      menuItem("Payrolls",
+      menuItem("Payroll jobs",
                tabName = "payrolls",
                icon = icon("dollar")),
+      menuItem("Jobs maps",
+               tabName = "jobs_maps",
+               icon = icon("globe")),
       menuItem("Inflation + wages growth",
                tabName = "inf_wages",
                icon = icon("dollar")),
@@ -294,6 +297,27 @@ tab_payrolls <- function(...) {
   )
 }
 
+tab_jobs_maps <- function(...) {
+  tabItem(
+    tabName = "jobs_maps",
+    graph_ui(title = "Payroll jobs by SA3",
+             "payrolls_map",
+             input_fn1 = function(id) {
+               selectInput(NS(id, "arg1"),
+                           "City to show",
+                           choices = c("Perth",
+                                       "Adelaide",
+                                       "Hobart",
+                                       "Darwin",
+                                       "Canberra",
+                                       "Brisbane",
+                                       "Sydney",
+                                       "Melbourne"))
+
+             })
+  )
+}
+
 tab_inf_wages <- function(...) {
   tabItem(
     tabName = "inf_wages",
@@ -468,6 +492,7 @@ body <- function(...) {
       tab_unemployment(),
       tab_emphours(),
       tab_payrolls(),
+      tab_jobs_maps(),
       tab_inf_wages(),
       tab_mobility(),
       tab_min_wages(),

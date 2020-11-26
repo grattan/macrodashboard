@@ -40,9 +40,12 @@ Imports:
     stringr,
     gt,
     zoo,
-    ggtext
+    ggtext,
+    absmapsdata,
+    sf
 Remotes:
     grattan/grattantheme,
-    mattcowgill/auseconhist
+    mattcowgill/auseconhist,
+    wfmackey/absmapsdata
 Depends: 
     R (>= 2.10)

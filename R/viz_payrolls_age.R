@@ -65,7 +65,7 @@ viz_payrolls_age <- function(data = load_data(),
     scale_colour_manual(values = cols) +
     theme_grattan() +
     theme(axis.title = element_blank() ) +
-    labs(title = "Payroll jobs by age",
+    labs(title = "Jobs for teenagers fell fastest, but rebounded quickest",
          subtitle = "Change in payroll jobs since 14 March 2020",
          caption = "Source: ABS Weekly Payroll Jobs.")
 
