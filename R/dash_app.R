@@ -90,6 +90,7 @@ dash_server <- function(input, output, session) {
       "forecasts_cpi_wpi",
       "rba_yieldcurve",
       "rba_bondrate",
+      "rba_official_rates",
       "wpi_bysector",
       "wpi_byind",
       "apple_mobility"
@@ -113,6 +114,7 @@ dash_server <- function(input, output, session) {
       viz_forecasts_cpi_wpi,
       viz_rba_yieldcurve,
       viz_rba_bondrate,
+      viz_rba_official_rates,
       viz_wpi_bysector,
       viz_wpi_byind,
       viz_apple_mobility

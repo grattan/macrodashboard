@@ -12,49 +12,58 @@ viz_rba_yieldcurve <- function(data = load_data(),
       ) / 52
     ))
 
+  raw_dates <- max(df$date) -
+    c(lubridate::days(0),
+      lubridate::days(30),
+      lubridate::years(1),
+      lubridate::years(5),
+      lubridate::years(10))
+
+  find_nearest_date <- function(date, date_vec) {
+    date_vec[which.min(abs(date_vec - date))]
+  }
+
+  highlighted_dates <- map(raw_dates,
+                           find_nearest_date,
+                           date_vec = df$date) %>%
+    purrr::reduce(c)
+
+  # df <- df %>%
+  #   mutate(date_type = case_when(
+  #     .data$date == max(.data$date) ~
+  #     format(.data$date, "%d %b %Y"),
+  #     .data$date == max(.data$date) - lubridate::days(30) ~
+  #     "1 month earlier",
+  #     .data$date == max(.data$date) - lubridate::years(1) ~
+  #     "1 year earlier",
+  #     .data$date == max(.data$date) - lubridate::years(5) ~
+  #     "5 years earlier",
+  #     .data$date == max(.data$date) - lubridate::years(10) ~
+  #     "10 years earlier",
+  #     TRUE ~ NA_character_
+  #   )) %>%
+  #   filter(!is.na(.data$date_type))
+
   df <- df %>%
-    mutate(date_type = case_when(
-      .data$date == max(.data$date) ~
-      format(.data$date, "%d %b %Y"),
-      .data$date == max(.data$date) - lubridate::days(30) ~
-      "1 month earlier",
-      .data$date == max(.data$date) - lubridate::years(1) ~
-      "1 year earlier",
-      .data$date == max(.data$date) - lubridate::years(5) ~
-      "5 years earlier",
-      .data$date == max(.data$date) - lubridate::years(10) ~
-      "10 years earlier",
-      TRUE ~ NA_character_
-    )) %>%
-    filter(!is.na(.data$date_type))
-
-  cols <- c(
-    "latest" = grattantheme::grattan_darkred,
-    "1 month earlier" = grattantheme::grattan_red,
-    "1 year earlier" = grattantheme::grattan_darkorange,
-    "5 years earlier" = grattantheme::grattan_lightorange,
-    "10 years earlier" = grattantheme::grattan_yellow
-  )
-
-  names(cols)[1] <- format(max(df$date), "%d %b %Y")
+    filter(.data$date %in% highlighted_dates)
 
   df %>%
     ggplot(aes(
       x = .data$years_to_maturity,
       y = .data$value,
-      col = .data$date_type
+      col = factor(.data$date)
     )) +
     geom_line() +
     grattan_point_filled(
-      data = ~ group_by(., .data$date_type) %>%
+      data = ~ group_by(., .data$date) %>%
         filter(.data$years_to_maturity == max(.data$years_to_maturity)),
       size = 2, fill = "white", stroke = 1
     ) +
     grattan_label_repel(
-      data = ~ group_by(., .data$date_type) %>%
+      data = ~ group_by(., .data$date) %>%
         filter(.data$years_to_maturity == max(.data$years_to_maturity)),
-      aes(label = stringr::str_wrap(.data$date_type, 7)),
-      # aes(label = format(date, "%d %b\n%Y")),
+      # aes(label = stringr::str_wrap(.data$date_type, 7)),
+      aes(label = format(date, "%d %b\n%Y")),
       direction = "y",
       segment.size = 0,
       hjust = 0.5,
@@ -74,7 +83,8 @@ viz_rba_yieldcurve <- function(data = load_data(),
       limits = c(0, max(df$years_to_maturity))
     ) +
     theme_grattan() +
-    scale_colour_manual(values = cols) +
+    # scale_colour_manual(values = cols) +
+    grattan_colour_manual(n = length(unique(highlighted_dates))) +
     labs(
       x = "Years to maturity",
       subtitle = "Yield on Australian Government bonds",

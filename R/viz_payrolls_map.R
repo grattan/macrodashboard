@@ -66,7 +66,7 @@ viz_payrolls_map <- function(data = load_data(),
       y = .data$cent_lat,
       label = round(.data$value, 1)
     ),
-    size = 11 / .pt
+    size = 10 / .pt
     ) +
     grattan_fill_manual(
       discrete = F, palette = "full_f",

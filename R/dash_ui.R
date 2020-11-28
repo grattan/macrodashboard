@@ -453,6 +453,35 @@ tab_interest <- function(...) {
                     value = c(as.Date("1900-01-01"), Sys.Date()),
                     label = "Choose dates to show")
       }
+    ),
+    graph_ui(
+      title = "Official interest rates of key central banks",
+      "rba_official_rates",
+      input_fn1 = function(id) {
+        sliderInput(NS(id, "arg1"),
+                    label = "Date range to show",
+                    min = as.Date("1990-01-31"),
+                    max = Sys.Date(),
+                    value = c(as.Date("1990-01-31"),
+                              Sys.Date()),
+                    step = 30)
+      },
+      input_fn2 = function(id) {
+        checkboxGroupInput(NS(id, "arg2"),
+                           label = "Areas to show",
+                           choices = c("Australia",
+                                       "Canada",
+                                       "Euro area",
+                                       "Japan",
+                                       "UK",
+                                       "US"),
+                           selected = c("Australia",
+                                        "Canada",
+                                        "Euro area",
+                                        "Japan",
+                                        "UK",
+                                        "US"))
+      }
     )
   )
 }
