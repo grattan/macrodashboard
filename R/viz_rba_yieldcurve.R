@@ -5,6 +5,7 @@ viz_rba_yieldcurve <- function(data = load_data(),
   df <- data$rba_detailed_yields
 
   df <- df %>%
+    filter(!grepl("Indexed", series)) %>%
     mutate(years_to_maturity = as.numeric(
       difftime(.data$maturity_date,
         .data$date,
@@ -23,7 +24,7 @@ viz_rba_yieldcurve <- function(data = load_data(),
     date_vec[which.min(abs(date_vec - date))]
   }
 
-  highlighted_dates <- map(raw_dates,
+  highlighted_dates <- purrr::map(raw_dates,
                            find_nearest_date,
                            date_vec = df$date) %>%
     purrr::reduce(c)
