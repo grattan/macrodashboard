@@ -20,24 +20,24 @@ viz_rba_official_rates <- function(data = load_data(),
 
 
   df <- df %>%
-    mutate(country = case_when(grepl("Australia", series) ~ "Australia",
-                               grepl("Euro", series) ~ "Euro area",
-                               grepl("Canada", series) ~ "Canada",
-                               grepl("Japan", series) ~ "Japan",
-                               grepl("United Kingdom", series) ~ "UK",
-                               grepl("United States", series) ~ "US"))
+    mutate(country = case_when(grepl("Australia", .data$series) ~ "Australia",
+                               grepl("Euro", .data$series) ~ "Euro area",
+                               grepl("Canada", .data$series) ~ "Canada",
+                               grepl("Japan", .data$series) ~ "Japan",
+                               grepl("United Kingdom", .data$series) ~ "UK",
+                               grepl("United States", .data$series) ~ "US"))
 
   df <- df %>%
     filter(.data$country %in% .env$countries)
 
 
   df %>%
-    ggplot(aes(x = date, y = value, col = country)) +
+    ggplot(aes(x = .data$date, y = .data$value, col = .data$country)) +
     geom_step() +
     # grattan_point_filled(data = ~filter(., date == max(date))) +
-    grattan_label_repel(data = ~group_by(., country) %>%
-                          filter(date == max(date)),
-                        aes(label = country),
+    grattan_label_repel(data = ~group_by(., .data$country) %>%
+                          filter(.data$date == max(.data$date)),
+                        aes(label = .data$country),
                         segment.size = 0,
                         nudge_x = 70,
                         force = 3,

@@ -9,6 +9,7 @@ viz_payrolls_map <- function(data = load_data(),
   city <- arg1
 
   df <- df %>%
+    filter(!is.na(.data$value)) %>%
     filter(.data$date == max(.data$date))
 
   df <- df %>%
@@ -26,6 +27,15 @@ viz_payrolls_map <- function(data = load_data(),
     ))
 
   df <- df %>%
+    mutate(value = .data$value - 100)
+
+  df <- df %>%
+    filter(!is.na(.data$city))
+
+  worst_value_nationally <- min(df$value)
+  best_value_nationally <- max(df$value)
+
+  df <- df %>%
     filter(.data$city == .env$city)
 
   df <- absmapsdata::sa32016 %>%
@@ -38,18 +48,15 @@ viz_payrolls_map <- function(data = load_data(),
     ) %>%
     right_join(df, by = c("sa3", "sa4"))
 
-  df <- df %>%
-    mutate(value = .data$value - 100)
-
-  worst_value <- df %>%
+  worst_value_incity <- df %>%
     filter(.data$value == min(.data$value)) %>%
     pull(value)
 
-  worst_area <- df %>%
-    filter(.data$value == worst_value) %>%
+  worst_area_incity <- df %>%
+    filter(.data$value == worst_value_incity) %>%
     pull(.data$sa3)
 
-  dir_of_change <- if_else(worst_value <= 100, "-", "+")
+  dir_of_change <- if_else(worst_value_incity <= 100, "-", "+")
 
   df %>%
     ggplot() +
@@ -70,7 +77,10 @@ viz_payrolls_map <- function(data = load_data(),
     ) +
     grattan_fill_manual(
       discrete = F, palette = "full_f",
-      labels = function(x) paste0(x, "%")
+      labels = function(x) paste0(x, "%"),
+      limits = c(min(0, worst_value_nationally),
+                 max(0, best_value_nationally)),
+      n.breaks = 3
     ) +
     theme_grattan(base_size = 14) +
     theme(
@@ -85,7 +95,7 @@ viz_payrolls_map <- function(data = load_data(),
     ) +
     coord_sf() +
     labs(
-      title = paste(worst_area,
+      title = paste(worst_area_incity,
         "is the hardest-hit area in",
         city,
         sep = " "

@@ -331,7 +331,8 @@ tab_jobs_maps <- function(...) {
             "Brisbane",
             "Sydney",
             "Melbourne"
-          )
+          ),
+          selected = "Melbourne"
         )
       }
     )
