@@ -7,13 +7,10 @@
 
 [![R build
 status](https://github.com/mattcowgill/macrodashboard/workflows/R-CMD-check/badge.svg)](https://github.com/mattcowgill/macrodashboard/actions)
-
-[![Travis build
-status](https://travis-ci.org/mattcowgill/macrodashboard.svg?branch=master)](https://travis-ci.org/mattcowgill/macrodashboard)
 <!-- badges: end -->
 
 This repo contains builds a Shiny dashboard of graphs relevant to
-Grattan Institute’s work on macroeconomic policy. It provides publication-ready charts in a range of formats. The intended audience for this dashboard is Grattan staff, but it is not password-protected.
+Grattan Institute’s work on macroeconomic policy.
 
 This is an *unfinished work in progress*.
 
@@ -33,11 +30,11 @@ using GitHub Actions, so that the data stays up-to-date.
 
 The ‘R’ folder of this repo contains:
 
-  - files beginning with `viz_`. These take a dataframe as input and
+-   files beginning with `viz_`. These take a dataframe as input and
     return a ggplot2 plot as output. There is one function per file.
-  - `dash_app.R`. This contains the server-side code for the Shiny app.
-  - `dash_ui.R`. This contains the UI code for the Shiny app.
-  - `globals.R`. This file defines global variables, to prevent warnings
+-   `dash_app.R`. This contains the server-side code for the Shiny app.
+-   `dash_ui.R`. This contains the UI code for the Shiny app.
+-   `globals.R`. This file defines global variables, to prevent warnings
     regarding functions that use non-standard evaluation.
-  - `load_data.R` This file contains a function (`load_data()`) that
+-   `load_data.R` This file contains a function (`load_data()`) that
     gets data from the `macro_data_dashboard` repo.

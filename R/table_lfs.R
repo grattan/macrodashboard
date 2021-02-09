@@ -24,6 +24,6 @@ table_lfs_summary <- function(data = load_data()) {
     )
 
 
-  raw_summ %>%
-    gt::gt(rowname_col = "sex", groupname_col = "series")
+  raw_summ #%>%
+    # gt::gt(rowname_col = "sex", groupname_col = "series")
 }

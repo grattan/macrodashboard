@@ -130,8 +130,11 @@ tab_about <- function(...) {
       shinyjs::hidden(
         div(
           id = "main_content",
-          " Data loaded, click away"
+          " Data loaded."
         )
+      ),
+      div(
+        "Some text here"
       )
     )
   )
@@ -580,6 +583,11 @@ tab_gross_flows <- function(...) {
 body <- function(...) {
   dashboardBody(
     tags$script(HTML("$('body').addClass('fixed');")),
+    tags$head(
+      tags$link(rel = "stylesheet",
+                type = "text/css",
+                href = system.file("www", "custom.css",
+                                   package = "macrodashboard"))),
     tabItems(
       tab_about(),
       tab_unemployment(),
@@ -598,9 +606,10 @@ body <- function(...) {
 
 
 dash_ui <- function(...) {
+
   dashboardPage(
-    skin = "yellow",
-    header = dashboardHeader(title = "Macro dashboard"),
+    skin = "black",
+    header = dashboardHeader(title = "Grattan chart library"),
     sidebar = sidebar(),
     body = body()
   )

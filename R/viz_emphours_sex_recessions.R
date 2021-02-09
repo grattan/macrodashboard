@@ -2,7 +2,7 @@
 
 viz_emphours_sex_recessions <- function(data = load_data(),
                                         measure = "employment",
-                                        facet_on = "recession") {
+                                        facet_on = "recession" ) {
   stopifnot(measure %in% c("employment", "hours", "hours_pop"))
   stopifnot(facet_on %in% c("recession", "sex"))
 

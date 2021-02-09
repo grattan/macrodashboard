@@ -2,7 +2,7 @@
 load_data <- function() {
   temp_file <- tempfile(fileext = ".rds")
   download.file(
-    url = "https://github.com/MattCowgill/macro_dashboard_data/blob/master/data/all_data.rds?raw=TRUE",
+    url = "https://github.com/grattan/macro_dashboard_data/blob/master/data/all_data.rds?raw=TRUE",
     destfile = temp_file,
     quiet = TRUE,
     cacheOK = FALSE

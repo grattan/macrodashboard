@@ -1,0 +1,68 @@
+/* Adapted from code by James Ha */
+
+/* Change hyperlink colour */
+
+a {
+  color: #F68B33
+}
+
+
+ .main-header .logo {
+  font-family: "Arial", Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+.skin-black .main-sidebar {
+  background-color: #FEECD6;
+}
+.skin-black .main-sidebar .sidebar .sidebar-menu .active a{
+ background-color: #F8A866; color:#000000;
+}
+.skin-black .main-sidebar .sidebar .sidebar-menu a:hover{
+   background-color: #F8A866;
+}
+
+.skin-black .nav-tabs-custom .nav-tabs li.active {
+    border-top-color: #f68b33;
+}
+
+
+/* logo */
+  .skin-black .main-header .logo {
+  background-color: #FEECD6; color: #FEECD6;
+  font-weight: bold;font-size: 24px;text-align: Right;
+}
+
+/*logo when hovered */
+  .skin-black .main-header .logo:hover {
+  background-color: #FEECD6;
+}
+
+
+/* navbar (rest of the header) */
+  .skin-black .main-header .navbar {
+  background-color: #FEECD6;
+}
+
+/* toggle button color */
+  .skin-black .main-header .navbar .sidebar-toggle{
+  background-color: #feecd6;color:rgb(0,144,197);
+}
+
+/* toggle button when hovered */
+  .skin-black .main-header .navbar .sidebar-toggle:hover{
+  background-color: #feecd6;color:rgb(255,255,255);
+}
+
+
+/* main body */
+ .skin-black .main-body {
+ background-color: rgb(0,144,197);
+ }
+
+
+
+/* other links in the sidebarmenu */
+  .skin-black .main-sidebar .sidebar .sidebar-menu a{
+  background-color: #FEECD6;
+  color: #000000;font-weight: bold;
+}
