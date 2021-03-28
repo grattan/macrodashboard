@@ -122,7 +122,7 @@ viz_corelogic_shutdown_panel <- function(data = load_data(),
 
   shutdown_panel <- shutdown_panel +
     plot_annotation(
-      title = "House price falls are accelerating in Melbourne, but remain modest elsewhere",
+      title = "House prices by capital city",
       subtitle = "Cumulative change in Corelogic daily home value index since 22 March 2020",
       caption = "Source: Corelogic"
     ) &
