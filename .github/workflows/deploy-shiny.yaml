@@ -16,4 +16,4 @@ jobs:
       - name: authorise-shiny
         run: |
          Rscript -e "rsconnect::setAccountInfo(name = 'grattan', token = ${{secrets.SHINYAPPS_TOKEN}}, secret = ${{secrets.SHINYAPPS_SECRET}})"
-         Rscript -e "rsconnect::deployApp(account = 'grattan', appName = 'macrodashboard')"
+         Rscript -e "rsconnect::deployApp(appName = 'macrodashboard')"
