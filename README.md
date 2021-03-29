@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/mattcowgill/macrodashboard/workflows/R-CMD-check/badge.svg)](https://github.com/mattcowgill/macrodashboard/actions)
+status](https://github.com/grattan/macrodashboard/workflows/R-CMD-check/badge.svg)](https://github.com/grattan/macrodashboard/actions)
 <!-- badges: end -->
 
 This repo contains builds a Shiny dashboard of graphs relevant to

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # macrodashboard
 
 <!-- badges: start -->
-[![R build status](https://github.com/mattcowgill/macrodashboard/workflows/R-CMD-check/badge.svg)](https://github.com/mattcowgill/macrodashboard/actions)
+[![R build status](https://github.com/grattan/macrodashboard/workflows/R-CMD-check/badge.svg)](https://github.com/grattan/macrodashboard/actions)
 <!-- badges: end -->
 
 This repo contains builds a Shiny dashboard of graphs relevant to Grattan Institute's
