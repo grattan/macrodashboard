@@ -1,0 +1,10 @@
+name: macrodashboard
+title:
+username:
+account: grattan
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3877772
+bundleId: 4406433
+url: https://grattan.shinyapps.io/macrodashboard/
+when: 1617000719.67797
