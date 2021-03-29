@@ -12,7 +12,7 @@ jobs:
       - name: install-packages
         run: |
          Rscript -e "install.packages(c('shiny', 'rsconnect', 'remotes'), type = 'binary')"
-         Rscript -e "remotes::install_deps(type = 'binary', force = FALSE)"
+         Rscript -e "remotes::install_deps(type = 'binary', force = FALSE, dependencies = TRUE)"
       - name: authorise-shiny
         run: |
          Rscript -e "rsconnect::setAccountInfo(name='mattcowgill', token=${{secrets.SHINYAPPS_TOKEN}}, secret=${{secrets.SHINYAPPS_SECRET}})"
