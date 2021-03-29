@@ -15,5 +15,5 @@ jobs:
          Rscript -e "remotes::install_deps(type = 'binary', force = FALSE, dependencies = TRUE)"
       - name: authorise-shiny
         run: |
-         Rscript -e "rsconnect::setAccountInfo(name = 'grattan', token = ${{secrets.SHINYAPPS_TOKEN}}, secret=${{secrets.SHINYAPPS_SECRET}})"
+         Rscript -e "rsconnect::setAccountInfo(name = 'grattan', token = ${{secrets.SHINYAPPS_TOKEN}}, secret = ${{secrets.SHINYAPPS_SECRET}})"
          Rscript -e "rsconnect::deployApp(account = 'grattan', appName = 'macrodashboard')"
