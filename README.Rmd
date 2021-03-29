@@ -24,11 +24,11 @@ work on macroeconomic policy.
 
 This is an *unfinished work in progress*.
 
-The live dashboard can be found at: [https://mattcowgill.shinyapps.io/macrodashboard/](https://mattcowgill.shinyapps.io/macrodashboard/)
+The live dashboard can be found at: [https://grattan.shinyapps.io/macrodashboard/](https://grattan.shinyapps.io/macrodashboard/)
 
 # Data
 
-All data for the dashboard comes via the `macro_dashboard_data` repo, [available here](https://github.com/MattCowgill/macro_dashboard_data/). That repo contains
+All data for the dashboard comes via the `macro_dashboard_data` repo, [available here](https://github.com/grattan/macro_dashboard_data/). That repo contains
 functions to download the latest version of each dataset, do some minimal tidying,
 and then write files to its 'data' directory. The functions in `macro_dashboard_data`
 execute on a schedule using GitHub Actions, so that the data stays up-to-date.
