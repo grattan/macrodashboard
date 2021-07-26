@@ -10,9 +10,9 @@ viz_payrolls_bystate <- function(data = load_data(),
                                    "VIC",
                                    "WA"
                                  ),
-                                 arg2 = "jobs") {
+                                 arg2 = NULL) {
   states <- arg1
-  series <- arg2
+  series <- "jobs"
 
   if (series == "jobs") {
     df <- data$payrolls_industry_jobs
