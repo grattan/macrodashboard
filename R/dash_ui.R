@@ -237,14 +237,6 @@ tab_payrolls <- function(...) {
           ),
           inline = TRUE
         )
-      },
-      input_fn2 = function(id) {
-        selectInput(NS(id, "arg2"),
-          label = "Show total jobs or total wages",
-          choices = c("jobs", "wages"),
-          selected = "jobs",
-          multiple = FALSE
-        )
       }
     ),
     graph_ui("payrolls_byind_bystate",
