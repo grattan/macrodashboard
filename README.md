@@ -31,7 +31,7 @@ GitHub Actions, so that the data stays up-to-date.
 The ‘R’ folder of this repo contains:
 
 -   files beginning with `viz_`. These take a dataframe as input and
-    return a ggplot2 plot as output. There is one function per file.
+    return a ggplot2 plot. There is one function per file.
 -   `dash_app.R`. This contains the server-side code for the Shiny app.
 -   `dash_ui.R`. This contains the UI code for the Shiny app.
 -   `globals.R`. This file defines global variables, to prevent warnings
