@@ -6,6 +6,7 @@ viz_rba_bondrate <- function(data = load_data(),
   min_date <- arg1[1]
   max_date <- arg1[2]
  #Try agin
+  #Next chnage
   lr <- auseconhist::butlin_t6 %>%
       mutate(date = lubridate::dmy(paste0("30-06", .data$year))) %>%
       select(.data$date, value = .data$bond_yield) %>%
